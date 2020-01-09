@@ -1,0 +1,107 @@
+{
+  "name": "typescript-lib-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/lib/index.js",
+  "outputName": "Person",
+  "amd": "dist/index.js",
+  "cjs": "dist/index.cjs.js",
+  "esm": "dist/index.esm.js",
+  "iife": "dist/index.iife.js",
+  "umd": "dist/index.umd.js",
+  "umdMin": "dist/index.umd.min.js",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc --module commonjs && cross-env NODE_ENV=production rollup -c ./config/rollup.config.prod.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
+    "dev": "tsc --module commonjs && cross-env NODE_ENV=development rollup -c ./config/rollup.config.dev.ts --watch",
+    "commit": "git-cz",
+    "precommit": "lint-staged",
+    "lint": "eslint src --fix --ext .ts,.tsx,.js,.jsx",
+    "test": "jest --coverage",
+    "test:watch": "jest --coverage --watch",
+    "test:prod": "npm run lint && npm run test -- --no-cache"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qqxs/typescript-lib-starter.git"
+  },
+  "keywords": [],
+  "author": "shineshao <xiaoshaoqq@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qqxs/typescript-lib-starter/issues"
+  },
+  "homepage": "https://github.com/qqxs/typescript-lib-starter#readme",
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "testEnvironment": "node",
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js|jsx)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 95,
+        "lines": 95,
+        "statements": 95
+      }
+    },
+    "collectCoverageFrom": [
+      "src/*.{js,ts,tsx,jsx}"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "@rollup/plugin-buble": "^0.21.0",
+    "@rollup/plugin-commonjs": "^11.0.0",
+    "@rollup/plugin-typescript": "^2.0.1",
+    "@types/jest": "^24.0.25",
+    "@types/node": "^13.1.5",
+    "@typescript-eslint/eslint-plugin": "^2.13.0",
+    "@typescript-eslint/parser": "^2.13.0",
+    "cross-env": "^6.0.3",
+    "eslint": "^6.8.0",
+    "git-cz": "^3.3.0",
+    "husky": "^3.1.0",
+    "jest": "^24.9.0",
+    "jest-config": "^24.9.0",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1",
+    "rimraf": "^3.0.0",
+    "rollup": "^1.27.14",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-serve": "^1.0.1",
+    "rollup-plugin-uglify": "^6.0.4",
+    "ts-jest": "^24.3.0",
+    "ts-node": "^8.5.4",
+    "tslib": "^1.10.0",
+    "typedoc": "^0.15.6",
+    "typescript": "^3.7.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.+(ts|js|tsx|jsx)": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.+(json|css|md)": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}

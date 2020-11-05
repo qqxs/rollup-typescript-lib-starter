@@ -1,11 +1,12 @@
 import { uglify } from 'rollup-plugin-uglify'
 import rollupPlugins from './rollip.plugins'
+import pkg from '../package.json'
 
-const pkg = require('../package.json')
+// const pkg = require('../package.json')
 
 const banner = `/*
 * ${pkg.outputName}.js v${pkg.version}
-* (c) 2018-${new Date().getFullYear()} ShineShao
+* (c) 2020-${new Date().getFullYear()} ShineShao
 * Released under the MIT License.
 */`
 

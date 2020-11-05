@@ -3,8 +3,6 @@ class Person {
 
   constructor(name: string) {
     this.name = name
-
-    console.log(141)
   }
 
   getName(): string {
@@ -26,3 +24,7 @@ class Person {
 }
 
 export default Person
+
+import { fromEvent } from 'rxjs'
+
+fromEvent(document, 'click').subscribe(e => console.log(e))

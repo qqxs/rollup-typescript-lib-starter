@@ -107,5 +107,11 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "dependencies": {
+    "rxjs": "^6.6.3"
+  },
+  "engines": {
+    "node": ">=11.0.0"
   }
 }

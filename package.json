@@ -1,5 +1,5 @@
 {
-  "name": "typescript-lib-starter",
+  "name": "rollup-typescript-lib-starter",
   "version": "1.0.0",
   "description": "",
   "main": "dist/lib/index.js",
@@ -23,15 +23,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qqxs/typescript-lib-starter.git"
+    "url": "git+https://github.com/qqxs/rollup-typescript-lib-starter.git"
   },
-  "keywords": [],
+  "keywords": [
+    "rollup",
+    "typescript",
+    "lib"
+  ],
   "author": "shineshao <xiaoshaoqq@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/qqxs/typescript-lib-starter/issues"
+    "url": "https://github.com/qqxs/rollup-typescript-lib-starter/issues"
   },
-  "homepage": "https://github.com/qqxs/typescript-lib-starter#readme",
+  "homepage": "https://github.com/qqxs/rollup-typescript-lib-starter#readme",
   "jest": {
     "transform": {
       ".(ts|tsx)": "ts-jest"

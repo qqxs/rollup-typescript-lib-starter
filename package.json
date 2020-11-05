@@ -15,7 +15,6 @@
     "build": "tsc --module commonjs && cross-env NODE_ENV=production rollup -c ./config/rollup.config.prod.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
     "dev": "tsc --module commonjs && cross-env NODE_ENV=development rollup -c ./config/rollup.config.dev.ts --watch",
     "commit": "git-cz",
-    "precommit": "lint-staged",
     "lint": "eslint src --fix --ext .ts,.tsx,.js,.jsx",
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch",

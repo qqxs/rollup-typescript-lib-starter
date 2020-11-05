@@ -1,6 +1,11 @@
-const path = require('path')
+import path from 'path'
 
-const resolveFile = function(filePath) {
+/**
+ * @description 解决文件路径
+ * @param {string} filePath
+ * @returns {string} string path
+ */
+function resolveFile(filePath) {
   return path.join(__dirname, '..', filePath)
 }
 

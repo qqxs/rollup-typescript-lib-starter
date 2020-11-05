@@ -3,6 +3,8 @@ class Person {
 
   constructor(name: string) {
     this.name = name
+
+    console.log(141)
   }
 
   getName(): string {

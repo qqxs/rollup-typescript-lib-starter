@@ -1,16 +1,13 @@
 import { uglify } from 'rollup-plugin-uglify'
 import rollupPlugins from './rollip.plugins'
 import pkg from '../package.json'
-
-// const pkg = require('../package.json')
+import isDev from './isDev'
 
 const banner = `/*
 * ${pkg.outputName}.js v${pkg.version}
 * (c) 2020-${new Date().getFullYear()} ShineShao
 * Released under the MIT License.
 */`
-
-const isDev = process.env.NODE_ENV === 'development'
 
 export default [
   {

@@ -87,15 +87,6 @@ export default [
         banner
       }
     ],
-    plugins: [
-      ...rollupPlugins,
-      ...[
-        uglify({
-          compress: {
-            drop_console: true
-          }
-        })
-      ]
-    ]
+    plugins: [...rollupPlugins, ...[uglify()]]
   }
 ]

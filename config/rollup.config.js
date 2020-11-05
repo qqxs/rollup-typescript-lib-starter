@@ -61,6 +61,7 @@ export default [
       }
     ],
     plugins: [...rollupPlugins]
+    // external: ['rxjs'] // 如果你不想第三方库被打包进来，而可以在外面引入，配合使用的话，可以在rollup.config.js中配置external
   },
   //   {
   //     input: 'src/lib/hello.ts',
@@ -85,5 +86,6 @@ export default [
       }
     ],
     plugins: [...rollupPlugins, ...[uglify()]]
+    // external: ['rxjs'] // 如果你不想第三方库被打包进来，而可以在外面引入，配合使用的话，可以在rollup.config.js中配置external
   }
 ]

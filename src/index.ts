@@ -25,6 +25,6 @@ class Person {
 
 export default Person
 
-import { fromEvent } from 'rxjs'
+// import { fromEvent } from 'rxjs'
 
-fromEvent(document, 'click').subscribe(e => console.log(e))
+// fromEvent(document, 'click').subscribe(e => console.log(e))

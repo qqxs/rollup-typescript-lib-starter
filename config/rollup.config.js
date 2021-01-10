@@ -5,9 +5,11 @@ import rollupPlugins from './rollip.plugins'
 import pkg from '../package.json'
 import isDev from './isDev'
 
+const name = pkg.name.replace(/-/gi, '')
+
 const banner = `/*
-* ${pkg.outputName}.js v${pkg.version}
-* (c) 2020-${new Date().getFullYear()} ShineShao
+* ${name}.js v${pkg.version}
+* (c) ${new Date().getFullYear()} ${pkg.author}
 * Released under the MIT License.
 */`
 
@@ -15,16 +17,16 @@ export default [
   {
     input: 'src/index.ts',
     output: [
-      //   {
-      //     // 浏览器端的模块规范, 可通过 RequireJS 可加载
-      //     // https://github.com/amdjs/amdjs-api/blob/master/AMD.md
-      //     // https://github.com/amdjs/amdjs-api/wiki/AMD-(%E4%B8%AD%E6%96%87%E7%89%88)
-      //     file: pkg.amd,
-      //     format: 'amd',
-      //     sourcemap: isDev,
-      //     banner,
-      //     extends: ['lib/hello', 'lodash']
-      //   },
+      // {
+      //   // 浏览器端的模块规范, 可通过 RequireJS 可加载
+      //   // https://github.com/amdjs/amdjs-api/blob/master/AMD.md
+      //   // https://github.com/amdjs/amdjs-api/wiki/AMD-(%E4%B8%AD%E6%96%87%E7%89%88)
+      //   file: pkg.amd,
+      //   format: 'amd',
+      //   sourcemap: isDev,
+      //   banner,
+      //   extends: ['lib/hello', 'lodash']
+      // },
       {
         // Node 默认的模块规范, 可通过 Webpack 加载
         // https://javascript.ruanyifeng.com/nodejs/module.html
@@ -48,7 +50,7 @@ export default [
         file: pkg.iife,
         format: 'iife',
         sourcemap: isDev,
-        name: pkg.outputName,
+        name: name,
         banner
       },
       {
@@ -57,7 +59,7 @@ export default [
         // https://leohxj.gitbooks.io/front-end-database/javascript-modules/about-umd.html
         file: pkg.umd,
         format: 'umd',
-        name: pkg.outputName,
+        name: name,
         sourcemap: isDev,
         banner
       }
@@ -83,7 +85,7 @@ export default [
       {
         file: pkg.umdMin,
         format: 'umd',
-        name: pkg.name,
+        name: name,
         banner
       }
     ],

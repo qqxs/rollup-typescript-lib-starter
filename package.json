@@ -1,9 +1,8 @@
 {
   "name": "rollup-typescript-lib-starter",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "start rollup typescript lib",
   "main": "dist/lib/index.js",
-  "outputName": "Person",
   "amd": "dist/index.js",
   "cjs": "dist/index.cjs.js",
   "esm": "dist/index.esm.js",
@@ -111,5 +110,9 @@
   },
   "engines": {
     "node": ">=10.16"
-  }
+  },
+  "files": [
+    "dist/lib/index.js",
+    "src"
+  ]
 }

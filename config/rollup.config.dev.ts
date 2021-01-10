@@ -4,8 +4,6 @@ import { resolveFile } from './path'
 
 const PORT = 3000
 
-console.log(configList)
-
 configList.map((config, index) => {
   if (index === 0) {
     config.plugins = [

@@ -5,7 +5,14 @@ import rollupPlugins from './rollip.plugins'
 import pkg from '../package.json'
 import isDev from './isDev'
 
-const name = pkg.name.replace(/-/gi, '')
+// 驼峰
+function toCamel(name) {
+  return name.replace(/\-(\w)/g, function(all, letter){
+      return letter.toUpperCase();
+  });
+}
+// 首字母大写
+const name = toCamel(pkg.name.replace(/^\S/, s => s.toUpperCase()))
 
 const banner = `/*
 * ${name}.js v${pkg.version}

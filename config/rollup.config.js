@@ -7,12 +7,14 @@ import isDev from './isDev'
 
 // 驼峰
 function toCamel(name) {
-  return name.replace(/\-(\w)/g, function(all, letter){
-      return letter.toUpperCase();
-  });
+  return name.replace(/\-(\w)/g, function(all, letter) {
+    return letter.toUpperCase()
+  })
 }
 // 首字母大写
 const name = toCamel(pkg.name.replace(/^\S/, s => s.toUpperCase()))
+
+const input = 'src/index.ts'
 
 const banner = `/*
 * ${name}.js v${pkg.version}
@@ -22,7 +24,7 @@ const banner = `/*
 
 export default [
   {
-    input: 'src/index.ts',
+    input,
     output: [
       // {
       //   // 浏览器端的模块规范, 可通过 RequireJS 可加载
@@ -86,7 +88,7 @@ export default [
   //     plugins: [...rollupPlugins]
   //   },
   {
-    input: 'src/index.ts',
+    input,
     output: [
       // umd with compress version
       {

@@ -98,16 +98,6 @@
     "typedoc": "^0.15.6",
     "typescript": "^4.9.3"
   },
-  "lint-staged": {
-    "*.+(ts|js|tsx|jsx)": [
-      "prettier --write",
-      "git add"
-    ],
-    "*.+(json|css|md)": [
-      "prettier --write",
-      "git add"
-    ]
-  },
   "dependencies": {
     "rxjs": "^6.6.3"
   },

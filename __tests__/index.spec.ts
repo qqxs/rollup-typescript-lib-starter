@@ -1,22 +1,62 @@
-import Person from '../src'
+import EventEmitter from '../src'
 
 /**
  * Dummy test
  */
-describe('Person test', () => {
+describe('EventEmitter test', () => {
   it('works if true is truthy', () => {
     expect(true).toBeTruthy()
   })
 
-  it('PersonClass is instantiable', () => {
-    expect(new Person('shine shao')).toBeInstanceOf(Person)
+  it('EventEmitterClass is instantiable', () => {
+    expect(new EventEmitter()).toBeInstanceOf(EventEmitter)
   })
-  it('PersonClass getName', () => {
-    expect(new Person('shine shao').getName()).toEqual('shine shao')
+
+  it('EventEmitterClass on', done => {
+    const event = new EventEmitter()
+
+    event.on('click', () => {
+      console.log('click')
+      done()
+    })
+    event.emit('click')
   })
-  it('PersonClass reset name and getName', () => {
-    const person = new Person('shine shao')
-    person.setName('freeshine')
-    expect(person.getName()).toBe('freeshine')
+
+  it('EventEmitterClass once', done => {
+    const event = new EventEmitter()
+
+    event.once('once-click', () => {
+      console.log('once-click')
+      done()
+    })
+    event.emit('once-click')
+  })
+
+  it('EventEmitterClass off', done => {
+    const event = new EventEmitter()
+
+    event.on('click', () => {
+      console.log('once-click')
+      done()
+    })
+
+    event.emit('click')
+    event.off('click')
+    event.emit('click')
+  })
+
+  it('EventEmitterClass emit', done => {
+    const event = new EventEmitter()
+
+    event.on('click', () => {
+      console.log('click')
+    })
+
+    event.on('click', () => {
+      console.log('click')
+      done()
+    })
+
+    event.emit('click')
   })
 })

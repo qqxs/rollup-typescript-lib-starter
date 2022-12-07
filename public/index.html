@@ -28,11 +28,17 @@
     <script src="./index.umd.js"></script>
     <script>
       ;(function () {
-        const person = new RollupTypescriptLibStarter('shine')
-        console.log(person)
-        console.log(person.getName())
-        person.setName('shineshao')
-        console.log(person.getName())
+        const eventEmitter = new RollupTypescriptLibStarter()
+
+        eventEmitter.on('click', () => {
+          console.log('click')
+        })
+
+        eventEmitter.on('click', () => {
+          console.log('click')
+        })
+
+        eventEmitter.emit('click')
       })()
     </script>
   </body>

@@ -1,30 +1,56 @@
-class Person {
-  private name: string
-
-  constructor(name: string) {
-    this.name = name
-  }
-
-  getName(): string {
-    return this.name
-  }
-
-  setName(name: string): void {
-    this.name = name
-    // _concat([1], 2, [3], [[4]])
-  }
-
-  //   async getPromise(): Promise<any> {
-  //     const num = await new Promise((resolve: (value?: unknown) => void) => {
-  //       resolve(1)
-  //     })
-
-  //     return num
-  //   }
+export interface EventEmitterInter {
+  on(type: string, fn: Function): void
+  off(type: string): void
+  emit(type: string): void
+  once(type: string, fn: Function): void
 }
 
-export default Person
+class EventEmitter implements EventEmitterInter {
+  private listen: Record<string, Array<Function>>
 
-// import { fromEvent } from 'rxjs'
+  constructor() {
+    this.listen = {}
+  }
 
-// fromEvent(document, 'click').subscribe(e => console.log(e))
+  /**
+   * @param type
+   * @param fn
+   */
+  on(type: string, fn: Function): void {
+    if (this.listen[type]) {
+      this.listen[type].push(fn)
+    } else {
+      this.listen[type] = [fn]
+    }
+  }
+
+  /**
+   * @param type
+   */
+  off(type: string): void {
+    this.listen[type] = []
+  }
+
+  /**
+   * @param type
+   */
+  emit(type: string): void {
+    if (this.listen[type]) {
+      this.listen[type].forEach(f => f())
+    }
+  }
+
+  /**
+   * @param type
+   * @param fn
+   */
+  once(type: string, fn: Function): void {
+    const cb = () => {
+      fn()
+      this.off(type)
+    }
+    this.on(type, cb)
+  }
+}
+
+export default EventEmitter

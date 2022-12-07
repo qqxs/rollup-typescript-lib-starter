@@ -1,4 +1,4 @@
-name: FreeShineit Blog
+name: Test-Build
 
 on:
   push:

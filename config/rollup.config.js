@@ -7,7 +7,7 @@ import isDev from './isDev'
 
 // 驼峰
 function toCamel(name) {
-  return name.replace(/\-(\w)/g, function(all, letter) {
+  return name.replace(/\-(\w)/g, function (all, letter) {
     return letter.toUpperCase()
   })
 }
@@ -37,6 +37,7 @@ export default [
       //   extends: ['lib/hello', 'lodash']
       // },
       {
+        exports: 'auto',
         // Node 默认的模块规范, 可通过 Webpack 加载
         // https://javascript.ruanyifeng.com/nodejs/module.html
         // https://zh.wikipedia.org/wiki/CommonJS

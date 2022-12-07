@@ -4,11 +4,10 @@ import commonjs from '@rollup/plugin-commonjs'
 // A Rollup which converts ES2015+ code with the Bublé compiler.
 import buble from '@rollup/plugin-buble'
 // babel
-// import babel from 'rollup-plugin-babel'
 import { babel } from '@rollup/plugin-babel'
 // so Rollup can find `rxjs`. lib
 import resolve from '@rollup/plugin-node-resolve'
-import { eslint } from 'rollup-plugin-eslint'
+import eslint from '@rollup/plugin-eslint'
 
 // node >= 10.16.0
 import filesize from 'rollup-plugin-filesize'

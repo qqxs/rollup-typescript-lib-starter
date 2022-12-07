@@ -11,7 +11,7 @@ configList.map((config, index) => {
       ...[
         serve({
           port: PORT,
-          contentBase: [resolveFile('example'), resolveFile('dist')]
+          contentBase: [resolveFile('public'), resolveFile('dist')]
         })
       ]
     ]

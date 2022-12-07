@@ -1,7 +1,7 @@
 // minify the Rollup bundle
-import { terser } from 'rollup-plugin-terser'
+import terser from '@rollup/plugin-terser'
 
-import rollupPlugins from './rollip.plugins'
+import rollupPlugins from './rollup.plugins'
 import pkg from '../package.json'
 import isDev from './isDev'
 

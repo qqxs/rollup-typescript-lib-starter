@@ -1,6 +1,6 @@
-import rolluptypescriptlibstarter from 'rollup-typescript-lib-starter'
+import RollupTypescriptLibStarter from 'rollup-typescript-lib-starter'
 
-const person = new rolluptypescriptlibstarter('shine')
+const person = new RollupTypescriptLibStarter('shine')
 console.log(person)
 console.log(person.getName())
 person.setName('shineshao')

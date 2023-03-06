@@ -1,14 +1,14 @@
 // minify the Rollup bundle
 import terser from '@rollup/plugin-terser'
-
+// rollup plugin
 import rollupPlugins from './rollup.plugins'
 import isDev from './isDev'
 
 import pkg from '../package.json'
 
 // 驼峰
-function toCamel(name) {
-  return name.replace(/\-(\w)/g, function (all, letter) {
+function toCamel(name: string) {
+  return name.replace(/\-(\w)/g, function (_, letter) {
     return letter.toUpperCase()
   })
 }

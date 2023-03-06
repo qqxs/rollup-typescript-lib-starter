@@ -2,8 +2,9 @@
 import terser from '@rollup/plugin-terser'
 
 import rollupPlugins from './rollup.plugins'
-import pkg from '../package.json'
 import isDev from './isDev'
+
+import pkg from '../package.json'
 
 // 驼峰
 function toCamel(name) {

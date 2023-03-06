@@ -1,12 +1,12 @@
 export interface EventEmitterInter {
-  on(type: string, fn: Function): void
+  on(type: string, fn: () => any): void
   off(type: string): void
   emit(type: string): void
-  once(type: string, fn: Function): void
+  once(type: string, fn: () => any): void
 }
 
 class EventEmitter implements EventEmitterInter {
-  private listen: Record<string, Array<Function>>
+  private listen: Record<string, Array<() => any>>
 
   constructor() {
     this.listen = {}
@@ -16,7 +16,7 @@ class EventEmitter implements EventEmitterInter {
    * @param type
    * @param fn
    */
-  on(type: string, fn: Function): void {
+  on(type: string, fn: () => any): void {
     if (this.listen[type]) {
       this.listen[type].push(fn)
     } else {
@@ -44,7 +44,7 @@ class EventEmitter implements EventEmitterInter {
    * @param type
    * @param fn
    */
-  once(type: string, fn: Function): void {
+  once(type: string, fn: () => any): void {
     const cb = () => {
       fn()
       this.off(type)

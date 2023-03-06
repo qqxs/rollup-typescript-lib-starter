@@ -1,6 +1,6 @@
 {
   "name": "rollup-typescript-lib-starter",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "start rollup typescript lib",
   "main": "dist/lib/index.js",
   "amd": "dist/index.js",
@@ -11,8 +11,8 @@
   "umdMin": "dist/index.umd.min.js",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "tsc --module commonjs && cross-env NODE_ENV=production rollup -c ./config/rollup.config.prod.ts && typedoc --out docs src",
-    "dev": "tsc --module commonjs && cross-env NODE_ENV=development rollup -c ./config/rollup.config.dev.ts --watch",
+    "build": "tsc --module commonjs && cross-env NODE_ENV=production rollup -c ./config/rollup.config.prod.ts --configPlugin @rollup/plugin-typescript && typedoc --out docs src",
+    "dev": "tsc --module commonjs && cross-env NODE_ENV=development rollup -c ./config/rollup.config.dev.ts --configPlugin @rollup/plugin-typescript --watch",
     "lint": "eslint src --fix --ext .ts,.tsx,.js,.jsx",
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch",

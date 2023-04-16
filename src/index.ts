@@ -5,6 +5,9 @@ export interface EventEmitterInter {
   once: (type: string, fn: () => any) => void;
 }
 
+/**
+ *
+ */
 class EventEmitter implements EventEmitterInter {
   private listen: Record<string, Array<() => any>>;
 

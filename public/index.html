@@ -22,24 +22,30 @@
 
   <body>
     <div id="root">
-      <h1>Rollup Typescript Lib</h1>
+      <h1 id="title">Rollup Typescript Lib</h1>
     </div>
     <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/rxjs/7.8.0/rxjs.umd.js'></script> -->
     <script src="./index.umd.js"></script>
     <script>
-      ;(function () {
-        const eventEmitter = new RollupTypescriptLibStarter()
+      (function () {
+        const eventEmitter = new RollupTypescriptLibStarter();
 
         eventEmitter.on('click', () => {
-          console.log('click')
-        })
+          console.log('click');
+        });
 
         eventEmitter.on('click', () => {
-          console.log('click')
-        })
+          console.log('click');
+        });
 
-        eventEmitter.emit('click')
-      })()
+        eventEmitter.emit('click');
+
+        const title = document.getElementById('title');
+
+        title.addEventListener('click', () => {
+          eventEmitter.emit('click');
+        });
+      })();
     </script>
   </body>
 </html>

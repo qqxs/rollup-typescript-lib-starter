@@ -4,6 +4,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+    project: ['tsconfig.json', 'tsconfig.node.json', 'jest.config.ts', 'vite.config.ts'],
   },
   rules: {
     // '@typescript-eslint/no-explicit-any': ['off'],

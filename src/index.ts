@@ -1,8 +1,8 @@
 export interface EventEmitterInter {
-  on(type: string, fn: () => any): void;
-  off(type: string): void;
-  emit(type: string): void;
-  once(type: string, fn: () => any): void;
+  on: (type: string, fn: () => any) => void;
+  off: (type: string) => void;
+  emit: (type: string) => void;
+  once: (type: string, fn: () => any) => void;
 }
 
 class EventEmitter implements EventEmitterInter {

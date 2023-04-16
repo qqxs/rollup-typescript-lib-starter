@@ -14,8 +14,12 @@ module.exports = {
         'doc',
         'refactor',
         'style',
-        'revert'
-      ]
-    ]
-  }
-}
+        'revert',
+        'perf',
+        'ci',
+        'build',
+        'release',
+      ],
+    ],
+  },
+};

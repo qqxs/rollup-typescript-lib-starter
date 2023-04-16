@@ -1,15 +1,15 @@
 export interface EventEmitterInter {
-  on(type: string, fn: () => any): void
-  off(type: string): void
-  emit(type: string): void
-  once(type: string, fn: () => any): void
+  on: (type: string, fn: () => any) => void;
+  off: (type: string) => void;
+  emit: (type: string) => void;
+  once: (type: string, fn: () => any) => void;
 }
 
 class EventEmitter implements EventEmitterInter {
-  private listen: Record<string, Array<() => any>>
+  private listen: Record<string, Array<() => any>>;
 
   constructor() {
-    this.listen = {}
+    this.listen = {};
   }
 
   /**
@@ -18,9 +18,9 @@ class EventEmitter implements EventEmitterInter {
    */
   on(type: string, fn: () => any): void {
     if (this.listen[type]) {
-      this.listen[type].push(fn)
+      this.listen[type].push(fn);
     } else {
-      this.listen[type] = [fn]
+      this.listen[type] = [fn];
     }
   }
 
@@ -28,7 +28,7 @@ class EventEmitter implements EventEmitterInter {
    * @param type
    */
   off(type: string): void {
-    this.listen[type] = []
+    this.listen[type] = [];
   }
 
   /**
@@ -36,7 +36,7 @@ class EventEmitter implements EventEmitterInter {
    */
   emit(type: string): void {
     if (this.listen[type]) {
-      this.listen[type].forEach(f => f())
+      this.listen[type].forEach((f) => f());
     }
   }
 
@@ -46,11 +46,11 @@ class EventEmitter implements EventEmitterInter {
    */
   once(type: string, fn: () => any): void {
     const cb = () => {
-      fn()
-      this.off(type)
-    }
-    this.on(type, cb)
+      fn();
+      this.off(type);
+    };
+    this.on(type, cb);
   }
 }
 
-export default EventEmitter
+export default EventEmitter;

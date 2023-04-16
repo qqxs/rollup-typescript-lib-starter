@@ -12,8 +12,8 @@
   "types": "./dist/types/index.d.ts",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "cross-env NODE_ENV=production rollup -c ./config/rollup.config.prod.mjs --bundleConfigAsCjs && typedoc --out docs src",
-    "dev": "cross-env NODE_ENV=development rollup -c ./config/rollup.config.dev.mjs --bundleConfigAsCjs --watch",
+    "build": "cross-env NODE_ENV=production rollup -c ./config/rollup.config.prod.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs&& typedoc --out docs src",
+    "dev": "tsc --module commonjs && cross-env NODE_ENV=development rollup -c ./config/rollup.config.dev.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs --watch",
     "lint": "eslint src --fix --ext .ts,.tsx,.js,.jsx",
     "fmt": "prettier --write \"src/**/*.{ts,tsx,js,jsx}\"",
     "test": "jest --coverage",

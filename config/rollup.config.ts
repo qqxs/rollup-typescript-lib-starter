@@ -3,10 +3,11 @@ import terser from '@rollup/plugin-terser';
 // rollup plugin
 import rollupPlugins from './rollup.plugins';
 import isDev from './isDev';
-import pkg from '../package.json' assert { type: 'json' };
+import pkg from '../package.json';
 
 // 驼峰命名
-function toCamel(name) {
+function toCamel(name: string) {
+  // eslint-disable-next-line no-useless-escape
   return name.replace(/\-(\w)/g, function (_, letter) {
     return letter.toUpperCase();
   });
@@ -17,9 +18,11 @@ const name = toCamel(pkg.name.replace(/^\S/, (s) => s.toUpperCase()));
 const input = 'src/index.ts';
 
 const banner = `/*
+*
 * ${name}.js v${pkg.version}
 * (c) ${new Date().getFullYear()} ${pkg.author}
 * Released under the MIT License.
+*
 */`;
 
 export default [
@@ -96,6 +99,7 @@ export default [
         file: pkg.umdMin,
         format: 'umd',
         name,
+        sourcemap: isDev,
         banner,
       },
     ],

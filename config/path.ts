@@ -5,7 +5,7 @@ import path from 'path';
  * @param {string} filePath
  * @returns {string} string path
  */
-function resolveFile(filePath) {
+function resolveFile(filePath: string) {
   return path.join(__dirname, '..', filePath);
 }
 

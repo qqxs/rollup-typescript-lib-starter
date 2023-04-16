@@ -25,6 +25,7 @@ export default [
     exclude: ['**/__tests__/**'],
     include: ['**/src/**'],
     sourceMap: isDev,
+    inlineSources: isDev,
   }),
   buble({
     include: ['**/src/**'],

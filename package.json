@@ -66,10 +66,10 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.21.0",
-    "@babel/preset-env": "^7.20.2",
-    "@commitlint/cli": "^17.4.4",
-    "@commitlint/config-conventional": "^17.4.4",
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
+    "@commitlint/cli": "^17.6.1",
+    "@commitlint/config-conventional": "^17.6.1",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-buble": "^1.0.2",
     "@rollup/plugin-commonjs": "^24.0.1",

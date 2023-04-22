@@ -19,6 +19,6 @@
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
-  "include": ["src/**/*", "config/**/*.ts"],
+  "include": ["src/**/*", "config/**/*.ts", "__tests__", ".eslintrc.js", "commitlint.config.js"],
   "exclude": ["node_modules", "dist", "coverage", "docs"]
 }

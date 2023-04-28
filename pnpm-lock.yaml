@@ -33,7 +33,7 @@ specifiers:
   ts-jest: ^29.1.0
   ts-node: ^10.9.1
   tslib: ^2.5.0
-  typedoc: ^0.24.2
+  typedoc: ^0.24.6
   typescript: ^4.9.5
 
 dependencies:
@@ -71,7 +71,7 @@ devDependencies:
   ts-jest: 29.1.0_rgossuqlslmrpogqankdav3e2e
   ts-node: 10.9.1_o6avl3oodj6mwqsx3rm2wfkgv4
   tslib: 2.5.0
-  typedoc: 0.24.2_typescript@4.9.5
+  typedoc: 0.24.6_typescript@4.9.5
   typescript: 4.9.5
 
 packages:
@@ -9351,10 +9351,10 @@ packages:
       is-typed-array: 1.1.10
     dev: true
 
-  /typedoc/0.24.2_typescript@4.9.5:
+  /typedoc/0.24.6_typescript@4.9.5:
     resolution:
       {
-        integrity: sha512-Ln1EItgcdKfRzaFSfs9uEc4amz9ZeUZoaTbFdH0ZC8ScA2OjvNMdW7vrjTtZwKE0iF38njUmuFFgQMP4tDl7ag==,
+        integrity: sha512-c3y3h45xJv3qYwKDAwU6Cl+26CjT0ZvblHzfHJ+SjQDM4p1mZxtgHky4lhmG0+nNarRht8kADfZlbspJWdZarQ==,
       }
     engines: { node: '>= 14.14' }
     hasBin: true

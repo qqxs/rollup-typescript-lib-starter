@@ -5,6 +5,8 @@
 <!-- ![Version](https://img.shields.io/npm/v/rollup-typescript-lib-starter.svg)
 ![License](https://img.shields.io/npm/l/rollup-typescript-lib-starter.svg) -->
 
+开发前端库，支持 Typescript/Javascript。
+
 ### Usage
 
 ```sh
@@ -14,8 +16,11 @@ yarn install
 # development
 yarn run dev
 
-# build dist
+# build dist and api document
 yarn run build
+
+# api document
+yarn run docs
 
 # test
 yarn run test

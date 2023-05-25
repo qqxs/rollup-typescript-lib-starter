@@ -6,7 +6,8 @@ export interface EventEmitterInter {
 }
 
 /**
- *
+ * @class
+ * @classdesc 发布订阅
  */
 class EventEmitter implements EventEmitterInter {
   private listen: Record<string, Array<() => any>>;
@@ -16,8 +17,10 @@ class EventEmitter implements EventEmitterInter {
   }
 
   /**
-   * @param type
-   * @param fn
+   * @description 添加订阅
+   * @param {string} type 订阅类型
+   * @param {Function} fn 订阅回调函数
+   * @returns {void}
    */
   on(type: string, fn: () => any): void {
     if (this.listen[type]) {
@@ -28,14 +31,18 @@ class EventEmitter implements EventEmitterInter {
   }
 
   /**
-   * @param type
+   * @description 取消订阅
+   * @param {string} type 取消订阅的类型
+   * @returns {void}
    */
   off(type: string): void {
     this.listen[type] = [];
   }
 
   /**
-   * @param type
+   * @description 触发订阅
+   * @param {string} type 订阅类型
+   * @return {void}
    */
   emit(type: string): void {
     if (this.listen[type]) {
@@ -44,8 +51,10 @@ class EventEmitter implements EventEmitterInter {
   }
 
   /**
-   * @param type
-   * @param fn
+   * @description 订阅一次, 只触发一次， 然后销毁
+   * @param {string} type 订阅类型
+   * @param {Function} fn 订阅回调函数
+   * @returns {void}
    */
   once(type: string, fn: () => any): void {
     const cb = () => {

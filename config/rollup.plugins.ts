@@ -19,7 +19,7 @@ export default [
     throwOnError: true, // lint 结果有错误将会抛出异常
     throwOnWarning: true,
     include: ['src/**/*.ts', 'src/**/*.js'],
-    exclude: ['node_modules/**'],
+    exclude: ['node_modules/**', '**/__tests__/**'],
   }),
   typescript({
     exclude: ['**/__tests__/**'],

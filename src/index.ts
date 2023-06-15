@@ -32,7 +32,6 @@ class EventEmitter implements EventEmitterInter {
     }
     Logger.v(fn);
     console.log('this is console.log');
-    debugger;
   }
 
   /**

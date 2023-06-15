@@ -33,6 +33,9 @@ devDependencies:
   '@rollup/plugin-node-resolve':
     specifier: ^15.0.2
     version: 15.0.2(rollup@3.20.2)
+  '@rollup/plugin-strip':
+    specifier: ^3.0.2
+    version: 3.0.2(rollup@3.20.2)
   '@rollup/plugin-terser':
     specifier: ^0.4.1
     version: 0.4.1(rollup@3.20.2)
@@ -2525,6 +2528,24 @@ packages:
       is-builtin-module: 3.2.1
       is-module: 1.0.0
       resolve: 1.22.3
+      rollup: 3.20.2
+    dev: true
+
+  /@rollup/plugin-strip@3.0.2(rollup@3.20.2):
+    resolution:
+      {
+        integrity: sha512-L8Whin/DB5XsLE586+xcud6yX/pMVUlfalA999uAsC+dtwmBHSiUwtAxMl3eVvykX3N5BhdeAjStqDlzMmfUXw==,
+      }
+    engines: { node: '>=14.0.0' }
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+    dependencies:
+      '@rollup/pluginutils': 5.0.2(rollup@3.20.2)
+      estree-walker: 2.0.2
+      magic-string: 0.27.0
       rollup: 3.20.2
     dev: true
 

@@ -1,3 +1,5 @@
+import Logger from './utils/logger';
+
 export interface EventEmitterInter {
   on: (type: string, fn: () => any) => void;
   off: (type: string) => void;
@@ -28,6 +30,8 @@ class EventEmitter implements EventEmitterInter {
     } else {
       this.listen[type] = [fn];
     }
+    Logger.v(fn);
+    console.log('this is console.log');
   }
 
   /**

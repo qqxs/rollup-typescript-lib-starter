@@ -13,7 +13,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "cross-env NODE_ENV=production rollup -c ./config/rollup.config.prod.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs && npm run docs",
-    "dev": "tsc --module commonjs && cross-env NODE_ENV=development rollup -c ./config/rollup.config.dev.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs --watch",
+    "dev": "cross-env NODE_ENV=development rollup -c ./config/rollup.config.dev.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs --watch",
     "docs": "rimraf docs && typedoc --out docs src",
     "lint": "eslint src --fix --ext .ts,.tsx,.js,.jsx",
     "fmt": "prettier --write \"{src,__tests__,config}/**/*.{ts,tsx,js,jsx}\"",
@@ -50,9 +50,15 @@
       "js",
       "jsx"
     ],
+    "testPathIgnorePatterns": [
+      "/dist/",
+      "/docs/",
+      "/coverage/"
+    ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "/test/"
+      "/test/",
+      "/dist/"
     ],
     "coverageThreshold": {
       "global": {
@@ -79,6 +85,7 @@
     "@rollup/plugin-strip": "^3.0.2",
     "@rollup/plugin-terser": "^0.4.1",
     "@rollup/plugin-typescript": "^11.1.0",
+    "@skax/camel": "^0.2.5",
     "@types/eslint": "^8.37.0",
     "@types/jest": "^29.5.0",
     "@types/mime": "^3.0.1",

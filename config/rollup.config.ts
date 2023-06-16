@@ -1,3 +1,4 @@
+import { upperCamel } from '@skax/camel';
 // minify the Rollup bundle
 import terser from '@rollup/plugin-terser';
 // rollup plugin
@@ -5,15 +6,8 @@ import rollupPlugins from './rollup.plugins';
 import isDev from './isDev';
 import pkg from '../package.json';
 
-// 驼峰命名
-function toCamel(name: string) {
-  // eslint-disable-next-line no-useless-escape
-  return name.replace(/\-(\w)/g, function (_, letter) {
-    return letter.toUpperCase();
-  });
-}
-// 首字母大写
-const name = toCamel(pkg.name.replace(/^\S/, (s) => s.toUpperCase()));
+// 大驼峰命名
+const name = upperCamel(pkg.name, '-');
 
 const input = 'src/index.ts';
 

@@ -79,6 +79,7 @@
     "@rollup/plugin-strip": "^3.0.2",
     "@rollup/plugin-terser": "^0.4.1",
     "@rollup/plugin-typescript": "^11.1.0",
+    "@skax/camel": "^0.2.5",
     "@types/eslint": "^8.37.0",
     "@types/jest": "^29.5.0",
     "@types/mime": "^3.0.1",

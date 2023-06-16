@@ -42,6 +42,9 @@ devDependencies:
   '@rollup/plugin-typescript':
     specifier: ^11.1.0
     version: 11.1.0(rollup@3.20.2)(tslib@2.5.0)(typescript@4.9.5)
+  '@skax/camel':
+    specifier: ^0.2.5
+    version: 0.2.5
   '@types/eslint':
     specifier: ^8.37.0
     version: 8.37.0
@@ -2639,6 +2642,15 @@ packages:
       }
     dependencies:
       '@sinonjs/commons': 2.0.0
+    dev: true
+
+  /@skax/camel@0.2.5:
+    resolution:
+      {
+        integrity: sha512-XKl4SDC7XgscLsvuNIAN+oVD2pw7hN3q85uq5L1RWwL3DbhxEfbSTkbD9hUzbF5lebyI8APoKH4rs2kIp5764Q==,
+      }
+    engines: { node: '>=14' }
+    requiresBuild: true
     dev: true
 
   /@tootallnate/once@2.0.0:

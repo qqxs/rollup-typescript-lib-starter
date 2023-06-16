@@ -50,9 +50,15 @@
       "js",
       "jsx"
     ],
+    "testPathIgnorePatterns": [
+      "/dist/",
+      "/docs/",
+      "/coverage/"
+    ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "/test/"
+      "/test/",
+      "/dist/"
     ],
     "coverageThreshold": {
       "global": {

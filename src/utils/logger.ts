@@ -1,9 +1,12 @@
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
+/**
+ * @class Logger class
+ * @classdesc Provide multiple log printing methods
+ */
 class Logger {
   static TAG = 'LOGGER';
 
   /**
-   * @description logger print error message
+   * @description Static method used to print error logs
    *
    * @example
    * Logger.e("error message") // [LOGGER ERROR] > error message
@@ -18,7 +21,7 @@ class Logger {
   }
 
   /**
-   * @description logger print info message
+   * @description Static method used to print info logs
    *
    * @example
    * Logger.i("info message") // [LOGGER INFO] > info message
@@ -33,7 +36,7 @@ class Logger {
   }
 
   /**
-   * @description logger print warn message
+   * @description Static method used to print warn logs
    *
    * @example
    * Logger.w("warn message") // [LOGGER WARN] > warn message
@@ -48,7 +51,7 @@ class Logger {
   }
 
   /**
-   * @description logger print debug message
+   * @description Static method used to print debug logs
    *
    * @example
    * Logger.d("debug message") // [LOGGER DEBUG] > debug message
@@ -63,7 +66,7 @@ class Logger {
   }
 
   /**
-   * @description logger print verbose message
+   * @description Static method used to print verbose logs
    *
    * @example
    * Logger.v("verbose message") // [LOGGER VERBOSE] > verbose message

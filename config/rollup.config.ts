@@ -46,7 +46,7 @@ export default [
       {
         // ES2015 Module 规范,
         // https://exploringjs.com/es6/ch_modules.html
-        file: pkg.esm,
+        file: pkg.main,
         format: 'esm',
         sourcemap: isDev,
         banner,

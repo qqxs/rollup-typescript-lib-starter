@@ -38,7 +38,7 @@ export default [
         // Node 默认的模块规范, 可通过 Webpack 加载
         // https://javascript.ruanyifeng.com/nodejs/module.html
         // https://zh.wikipedia.org/wiki/CommonJS
-        file: pkg.cjs,
+        file: pkg.main,
         format: 'cjs',
         sourcemap: isDev,
         banner,
@@ -46,20 +46,21 @@ export default [
       {
         // ES2015 Module 规范,
         // https://exploringjs.com/es6/ch_modules.html
+        exports: 'auto',
         file: pkg.esm,
         format: 'esm',
         sourcemap: isDev,
         banner,
       },
-      {
-        // 自执行函数, 可通过 <script> 标签加载
-        // https://developer.mozilla.org/zh-CN/docs/Glossary/%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F
-        file: pkg.iife,
-        format: 'iife',
-        sourcemap: isDev,
-        name,
-        banner,
-      },
+      // {
+      //   // 自执行函数, 可通过 <script> 标签加载
+      //   // https://developer.mozilla.org/zh-CN/docs/Glossary/%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F
+      //   file: pkg.iife,
+      //   format: 'iife',
+      //   sourcemap: isDev,
+      //   name,
+      //   banner,
+      // },
       {
         //   UMD (Universal Module Definition), 希望提供一个前后端跨平台的解决方案(支持AMD与CommonJS模块方式),。
         //   https://github.com/umdjs/umd

@@ -1,11 +1,10 @@
 {
   "name": "rollup-typescript-lib-starter",
-  "version": "0.3.2",
+  "version": "0.3.4",
   "description": "start rollup typescript lib",
-  "main": "dist/lib/index.js",
-  "amd": "dist/index.js",
-  "cjs": "dist/index.cjs.js",
+  "main": "dist/index.js",
   "esm": "dist/index.esm.js",
+  "amd": "dist/index.amd.js",
   "iife": "dist/index.iife.js",
   "umd": "dist/index.umd.js",
   "umdMin": "dist/index.umd.min.js",
@@ -116,8 +115,6 @@
     "node": ">=14"
   },
   "files": [
-    "dist/lib/index.js",
-    "dist/types",
-    "src"
+    "dist"
   ]
 }

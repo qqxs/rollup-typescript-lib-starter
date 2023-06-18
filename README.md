@@ -5,7 +5,7 @@
 <!-- ![Version](https://img.shields.io/npm/v/rollup-typescript-lib-starter.svg)
 ![License](https://img.shields.io/npm/l/rollup-typescript-lib-starter.svg) -->
 
-开发前端库，支持 Typescript/Javascript。
+用来开发前端库，支持 Typescript/Javascript。
 
 ### Usage
 

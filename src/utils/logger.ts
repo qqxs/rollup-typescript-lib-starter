@@ -24,7 +24,7 @@ class Logger {
    * @returns {void}
    */
   static e(msg: any, tag?: string) {
-    if (this.LOGGER_LEVEL <= 4) console.error(`[${tag || `${Logger.TAG} ERROR`}] > `, msg);
+    if (Logger.LOGGER_LEVEL <= 4) console.error(`[${tag || `${Logger.TAG} ERROR`}] > `, msg);
   }
 
   /**
@@ -39,7 +39,7 @@ class Logger {
    * @returns {void}
    */
   static w(msg: any, tag?: string) {
-    if (this.LOGGER_LEVEL <= 3) console.warn(`[${tag || `${Logger.TAG} WARN`}] > `, msg);
+    if (Logger.LOGGER_LEVEL <= 3) console.warn(`[${tag || `${Logger.TAG} WARN`}] > `, msg);
   }
 
   /**
@@ -54,7 +54,7 @@ class Logger {
    * @returns {void}
    */
   static i(msg: any, tag?: string) {
-    if (this.LOGGER_LEVEL <= 2) console.info(`[${tag || `${Logger.TAG} INFO`}] > `, msg);
+    if (Logger.LOGGER_LEVEL <= 2) console.info(`[${tag || `${Logger.TAG} INFO`}] > `, msg);
   }
 
   /**
@@ -69,7 +69,7 @@ class Logger {
    * @returns {void}
    */
   static v(msg: any, tag?: string) {
-    if (this.LOGGER_LEVEL <= 1) console.log(`[${tag || `${Logger.TAG} VERBOSE`}] > `, msg);
+    if (Logger.LOGGER_LEVEL <= 1) console.log(`[${tag || `${Logger.TAG} VERBOSE`}] > `, msg);
   }
 
   /**
@@ -84,11 +84,11 @@ class Logger {
    * @returns {void}
    */
   static d(msg: any, tag?: string) {
-    if (this.LOGGER_LEVEL < 1) console.debug(`[${tag || `${Logger.TAG} DEBUG`}] > `, msg);
+    if (Logger.LOGGER_LEVEL < 1) console.debug(`[${tag || `${Logger.TAG} DEBUG`}] > `, msg);
   }
 
   static setOptions(options: LoggerOptions) {
-    this.LOGGER_LEVEL = this._matchLevel(options.level);
+    Logger.LOGGER_LEVEL = Logger._matchLevel(options.level);
   }
 
   private static _matchLevel(level: string) {

@@ -7,10 +7,10 @@ export interface LoggerOptions {
  * @classdesc Provide multiple log printing methods
  */
 class Logger {
-  static TAG = 'LOGGER';
+  private static readonly TAG = 'LOGGER';
 
   // log level default 0,
-  static LOGGER_LEVEL: number = 0;
+  private static LOGGER_LEVEL: number = 0;
 
   /**
    * @description Static method used to print error logs

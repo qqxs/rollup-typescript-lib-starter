@@ -4,6 +4,10 @@ import Logger from '../src/utils/logger';
  * Dummy test
  */
 describe('Logger test', () => {
+  // Logger.setOptions({
+  //   level: "VERBOSE",
+  // })
+
   it('Logger verbose', () => {
     const originalLog = global.console.log;
     global.console.log = jest.fn();

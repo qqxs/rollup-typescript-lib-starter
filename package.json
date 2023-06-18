@@ -1,6 +1,6 @@
 {
   "name": "rollup-typescript-lib-starter",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "start rollup typescript lib",
   "main": "dist/index.js",
   "esm": "dist/index.esm.js",

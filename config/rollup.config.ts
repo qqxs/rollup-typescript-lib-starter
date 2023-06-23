@@ -19,6 +19,8 @@ const banner = `/*
 *
 */`;
 
+const sourcemap = isDev;
+
 export default [
   {
     input,
@@ -29,7 +31,7 @@ export default [
       //   // https://github.com/amdjs/amdjs-api/wiki/AMD-(%E4%B8%AD%E6%96%87%E7%89%88)
       //   file: pkg.amd,
       //   format: 'amd',
-      //   sourcemap: isDev,
+      //   sourcemap,
       //   banner,
       //   extends: ['lib/hello', 'lodash']
       // },
@@ -40,7 +42,7 @@ export default [
         // https://zh.wikipedia.org/wiki/CommonJS
         file: pkg.main,
         format: 'cjs',
-        sourcemap: isDev,
+        sourcemap,
         banner,
       },
       {
@@ -49,7 +51,7 @@ export default [
         exports: 'auto',
         file: pkg.esm,
         format: 'esm',
-        sourcemap: isDev,
+        sourcemap,
         banner,
       },
       // {
@@ -68,7 +70,7 @@ export default [
         file: pkg.umd,
         format: 'umd',
         name,
-        sourcemap: isDev,
+        sourcemap,
         banner,
       },
     ],
@@ -94,7 +96,7 @@ export default [
         file: pkg.umdMin,
         format: 'umd',
         name,
-        sourcemap: isDev,
+        sourcemap,
         banner,
       },
     ],

@@ -18,7 +18,7 @@
     "fmt": "prettier --write \"{src,__tests__,config}/**/*.{ts,tsx,js,jsx}\"",
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch",
-    "test:prod": "npm run lint && npm run test -- --no-cache",
+    "test:prod": "npm run build && npm run test -- --no-cache",
     "prepare": "husky install",
     "preinstall": "npx only-allow pnpm"
   },

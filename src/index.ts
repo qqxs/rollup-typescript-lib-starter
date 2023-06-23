@@ -1,10 +1,12 @@
 import Logger from './utils/logger';
 
+export type EventCallbackFn = () => any;
+
 export interface EventEmitterInter {
-  on: (type: string, fn: () => any) => void;
-  off: (type: string) => void;
+  on: (type: string, fn: EventCallbackFn) => void;
+  off: (type: string, fn?: EventCallbackFn) => void;
   emit: (type: string) => void;
-  once: (type: string, fn: () => any) => void;
+  once: (type: string, fn: EventCallbackFn) => void;
 }
 
 /**
@@ -12,7 +14,7 @@ export interface EventEmitterInter {
  * @classdesc 发布订阅
  */
 class EventEmitter implements EventEmitterInter {
-  private listen: Record<string, Array<() => any>>;
+  private listen: Record<string, EventCallbackFn[]>;
 
   constructor() {
     this.listen = {};
@@ -24,7 +26,7 @@ class EventEmitter implements EventEmitterInter {
    * @param {Function} fn 订阅回调函数
    * @returns {void}
    */
-  on(type: string, fn: () => any): void {
+  on(type: string, fn: EventCallbackFn): void {
     if (this.listen[type]) {
       this.listen[type].push(fn);
     } else {
@@ -39,8 +41,15 @@ class EventEmitter implements EventEmitterInter {
    * @param {string} type 取消订阅的类型
    * @returns {void}
    */
-  off(type: string): void {
-    this.listen[type] = [];
+  off(type: string, fn?: EventCallbackFn): void {
+    if (typeof fn === 'function') {
+      const list = this.listen[type];
+      const index = list.findIndex((item) => item === fn);
+      list.splice(index, 1);
+      this.listen[type] = list;
+    } else {
+      this.listen[type] = [];
+    }
   }
 
   /**
@@ -60,10 +69,10 @@ class EventEmitter implements EventEmitterInter {
    * @param {Function} fn 订阅回调函数
    * @returns {void}
    */
-  once(type: string, fn: () => any): void {
+  once(type: string, fn: EventCallbackFn): void {
     const cb = () => {
       fn();
-      this.off(type);
+      this.off(type, cb);
     };
     this.on(type, cb);
   }

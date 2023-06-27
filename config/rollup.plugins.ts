@@ -1,3 +1,4 @@
+import { type Plugin } from 'rollup';
 import typescript from '@rollup/plugin-typescript';
 // Convert CommonJS modules to ES6
 import commonjs from '@rollup/plugin-commonjs';
@@ -34,4 +35,4 @@ export default [
   commonjs({ extensions: ['.js', '.ts'] }),
   babel({ babelHelpers: 'bundled' }),
   !isDev && filesize(),
-];
+] as Plugin[];

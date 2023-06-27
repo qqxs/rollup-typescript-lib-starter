@@ -11,6 +11,7 @@ compiled
 .awcache
 .rpt2_cache
 docs
+stats.html
 
 .DS_Store
 .idea

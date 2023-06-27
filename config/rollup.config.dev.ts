@@ -5,7 +5,7 @@ import { resolveFile } from './path';
 const PORT = 3000;
 
 configList.map((config, index) => {
-  if (index === 0) {
+  if (index === 0 && config) {
     config.plugins = [
       ...config.plugins,
       ...[

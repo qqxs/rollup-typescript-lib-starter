@@ -1,6 +1,8 @@
 import { upperCamel } from '@skax/camel';
+import { type MergedRollupOptions } from 'rollup';
 // minify the Rollup bundle
 import terser from '@rollup/plugin-terser';
+import { visualizer } from 'rollup-plugin-visualizer';
 // rollup plugin
 import rollupPlugins from './rollup.plugins';
 import isDev from './isDev';
@@ -79,30 +81,21 @@ export default [
     plugins: [...rollupPlugins],
     // external: ['rxjs'] // 如果你不想第三方库被打包进来，而可以在外面引入，配合使用的话，可以在rollup.config.js中配置external
   },
-  //   {
-  //     input: 'src/lib/hello.ts',
-  //     output: {
-  //       file: 'dist/lib/hello.js',
-  //       format: 'amd',
-  //       amd: {
-  //         id: 'lib/hello'
-  //       }
-  //     },
-  //     plugins: [...rollupPlugins]
-  //   },
-  {
-    input,
-    output: [
-      // umd with compress version
-      {
-        file: pkg.umdMin,
-        format: 'umd',
-        name,
-        sourcemap,
-        banner,
-      },
-    ],
-    plugins: [...rollupPlugins, ...[terser()]],
-    // external: ['rxjs'] // 如果你不想第三方库被打包进来，而可以在外面引入，配合使用的话，可以在rollup.config.js中配置external
-  },
-];
+  !isDev
+    ? {
+        input,
+        output: [
+          // umd with compress version
+          {
+            file: pkg.umdMin,
+            format: 'umd',
+            name,
+            sourcemap,
+            banner,
+          },
+        ],
+        plugins: [...rollupPlugins, ...[terser(), visualizer()]],
+        // external: ['rxjs'] // 如果你不想第三方库被打包进来，而可以在外面引入，配合使用的话，可以在rollup.config.js中配置external
+      }
+    : null,
+].filter((config) => config !== null) as MergedRollupOptions[];

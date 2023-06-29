@@ -32,11 +32,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      # 打包
-      - name: Build Packages
-        run: pnpm run build
+      # # 打包
+      # - name: Build Packages
+      #   run: pnpm run build
 
-      # 发布npm
+      # 发布npm 发布前执行了prepublishOnly
       - name: Publish npm
         run: npm publish
         env:

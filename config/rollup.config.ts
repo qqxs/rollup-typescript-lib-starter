@@ -3,7 +3,7 @@ import { type MergedRollupOptions } from 'rollup';
 // minify the Rollup bundle
 import terser from '@rollup/plugin-terser';
 import { visualizer } from 'rollup-plugin-visualizer';
-// rollup plugin
+// rollup common plugin
 import rollupPlugins from './rollup.plugins';
 import isDev from './isDev';
 import pkg from '../package.json';

@@ -1,13 +1,12 @@
 # 整个流程的名字
 name: Release
 
-# 触发时机，在 main 分支 push 操作触发
+# 触发时机，在 tag push 操作触发
 on:
   push:
     tags:
       - 'v*'
 
-# 任务，定义个changelog 的任务
 jobs:
   changelog:
     name: Release

@@ -106,12 +106,9 @@
     "rollup-plugin-visualizer": "^5.9.2",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
-    "tslib": "^2.5.0",
+    "tslib": "^2.6.0",
     "typedoc": "^0.24.8",
     "typescript": "^5.0.4"
-  },
-  "dependencies": {
-    "rxjs": "^7.8.0"
   },
   "engines": {
     "node": ">=14"

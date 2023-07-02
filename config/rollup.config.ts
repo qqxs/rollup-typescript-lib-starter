@@ -6,6 +6,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 // rollup common plugin
 import rollupPlugins from './rollup.plugins';
 import isDev from './isDev';
+import isAnalyzer from './isAnalyzer';
 import pkg from '../package.json';
 
 // 大驼峰命名
@@ -94,7 +95,10 @@ export default [
             banner,
           },
         ],
-        plugins: [...rollupPlugins, ...[terser(), visualizer()]],
+        plugins: [
+          ...rollupPlugins,
+          ...[terser(), isAnalyzer ? visualizer() : null].filter((plugin) => plugin !== null),
+        ],
         // external: ['rxjs'] // 如果你不想第三方库被打包进来，而可以在外面引入，配合使用的话，可以在rollup.config.js中配置external
       }
     : null,

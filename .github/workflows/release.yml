@@ -31,7 +31,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      # # 打包
       # - name: Build Packages
       #   run: pnpm run build
 
@@ -40,5 +39,5 @@ jobs:
         run: npm publish
         env:
           # 这里需要几个 Token 变量
-          # NPM_TOKEN 需要稍后在 npm 网站生成。
+          # NPM_TOKEN 需要在 npm 网站生成。
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

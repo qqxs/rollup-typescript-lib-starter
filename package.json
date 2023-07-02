@@ -11,9 +11,10 @@
   "types": "./dist/types/index.d.ts",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "cross-env NODE_ENV=production rollup -c ./config/rollup.config.prod.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs && npm run docs",
+    "build": "cross-env NODE_ENV=production rollup -c ./config/rollup.config.prod.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs",
     "dev": "cross-env NODE_ENV=development rollup -c ./config/rollup.config.dev.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs --watch",
     "docs": "rimraf docs && typedoc --out docs src",
+    "analyzer": "cross-env ANALYZER=true npm run build",
     "lint": "eslint src --fix --ext .ts,.tsx,.js,.jsx",
     "fmt": "prettier --write \"{src,__tests__,config}/**/*.{ts,tsx,js,jsx}\"",
     "test": "jest --coverage",
@@ -106,12 +107,9 @@
     "rollup-plugin-visualizer": "^5.9.2",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
-    "tslib": "^2.5.0",
+    "tslib": "^2.6.0",
     "typedoc": "^0.24.8",
     "typescript": "^5.0.4"
-  },
-  "dependencies": {
-    "rxjs": "^7.8.0"
   },
   "engines": {
     "node": ">=14"

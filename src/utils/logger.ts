@@ -1,5 +1,7 @@
+export type LoggerLevel = 'DEBUG' | 'VERBOSE' | 'INFO' | 'WARN' | 'ERROR';
+
 export interface LoggerOptions {
-  level: 'DEBUG' | 'VERBOSE' | 'INFO' | 'WARN' | 'ERROR';
+  level: LoggerLevel;
 }
 
 /**
@@ -14,6 +16,7 @@ class Logger {
 
   /**
    * @description Static method used to print error logs
+   * @static
    *
    * @example
    * Logger.e("error message") // [LOGGER ERROR] > error message
@@ -29,6 +32,7 @@ class Logger {
 
   /**
    * @description Static method used to print warn logs
+   * @static
    *
    * @example
    * Logger.w("warn message") // [LOGGER WARN] > warn message
@@ -44,6 +48,7 @@ class Logger {
 
   /**
    * @description Static method used to print info logs
+   * @static
    *
    * @example
    * Logger.i("info message") // [LOGGER INFO] > info message
@@ -59,6 +64,7 @@ class Logger {
 
   /**
    * @description Static method used to print verbose logs
+   * @static
    *
    * @example
    * Logger.v("verbose message") // [LOGGER VERBOSE] > verbose message
@@ -74,6 +80,7 @@ class Logger {
 
   /**
    * @description Static method used to print debug logs
+   * @static
    *
    * @example
    * Logger.d("debug message") // [LOGGER DEBUG] > debug message
@@ -87,11 +94,32 @@ class Logger {
     if (Logger.LOGGER_LEVEL < 1) console.debug(`[${tag || `${Logger.TAG} DEBUG`}] > `, msg);
   }
 
+  /**
+   * @description Static method used to set logger option
+   * @static
+   *
+   * @example
+   * Logger.setOptions({level: 0}) // set logger level
+   *
+   * @param {LoggerOptions} options logger options
+   * @return {void}
+   */
   static setOptions(options: LoggerOptions) {
     Logger.LOGGER_LEVEL = Logger._matchLevel(options.level);
   }
 
-  private static _matchLevel(level: string) {
+  /**
+   * @description Static method used to metch logger level
+   * @static
+   * @private
+   *
+   * @example
+   * Logger._matchLevel("DEBUG")
+   *
+   * @param {LoggerLevel} level logger level
+   * @return {number}
+   */
+  private static _matchLevel(level: LoggerLevel) {
     let logLevel = 0;
     switch (level) {
       case 'DEBUG':

@@ -39,7 +39,7 @@ class Logger {
    * Logger.w("warn message", "WARN") // [WARN] > warn message
    *
    * @param {any} msg warn message
-   * @param {string} tag logger tage
+   * @param {string} tag logger tag
    * @returns {void}
    */
   static w(msg: any, tag?: string) {
@@ -109,7 +109,7 @@ class Logger {
   }
 
   /**
-   * @description Static method used to metch logger level
+   * @description Static method used to match logger level
    * @static
    * @private
    *

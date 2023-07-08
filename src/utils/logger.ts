@@ -1,5 +1,7 @@
+/** logger level */
 export type LoggerLevel = 'DEBUG' | 'VERBOSE' | 'INFO' | 'WARN' | 'ERROR';
 
+/** logger options */
 export interface LoggerOptions {
   level: LoggerLevel;
 }

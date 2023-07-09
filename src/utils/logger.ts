@@ -3,7 +3,8 @@ export type LoggerLevel = 'DEBUG' | 'VERBOSE' | 'INFO' | 'WARN' | 'ERROR';
 
 /** logger options */
 export interface LoggerOptions {
-  level: LoggerLevel;
+  level?: LoggerLevel;
+  hideTag?: boolean;
 }
 
 /**
@@ -15,6 +16,7 @@ class Logger {
 
   // log level default 0,
   private static LOGGER_LEVEL: number = 0;
+  private static HIDE_TAG: boolean = false;
 
   /**
    * @description Static method used to print error logs
@@ -22,14 +24,15 @@ class Logger {
    *
    * @example
    * Logger.e("error message") // [LOGGER ERROR] > error message
-   * Logger.e("error message", "ERROR") // [ERROR] > error message
    *
-   * @param {any} msg error message
-   * @param {string} tag logger prefix tag
+   * @param {...any[]} args error messages
    * @returns {void}
    */
-  static e(msg: any, tag?: string) {
-    if (Logger.LOGGER_LEVEL <= 4) console.error(`[${tag || `${Logger.TAG} ERROR`}] > `, msg);
+  static e(...args: any[]) {
+    if (Logger.LOGGER_LEVEL <= 4)
+      Logger.HIDE_TAG
+        ? console.error(...args)
+        : console.error(`%c[${Logger.TAG} ERROR] > `, 'background:red;color: #FFF', ...args);
   }
 
   /**
@@ -38,14 +41,15 @@ class Logger {
    *
    * @example
    * Logger.w("warn message") // [LOGGER WARN] > warn message
-   * Logger.w("warn message", "WARN") // [WARN] > warn message
    *
-   * @param {any} msg warn message
-   * @param {string} tag logger tag
+   * @param {...any[]} args warn messages
    * @returns {void}
    */
-  static w(msg: any, tag?: string) {
-    if (Logger.LOGGER_LEVEL <= 3) console.warn(`[${tag || `${Logger.TAG} WARN`}] > `, msg);
+  static w(...args: any[]) {
+    if (Logger.LOGGER_LEVEL <= 3)
+      Logger.HIDE_TAG
+        ? console.warn(...args)
+        : console.warn(`%c[${Logger.TAG} WARN] > `, 'background:#faad14;color: #FFF', ...args);
   }
 
   /**
@@ -54,14 +58,15 @@ class Logger {
    *
    * @example
    * Logger.i("info message") // [LOGGER INFO] > info message
-   * Logger.i("info message", "ERROR") // [LOGGER INFO] > info message
    *
-   * @param {any} msg info message
-   * @param {string} tag logger prefix tag
+   * @param {...any[]} args info messages
    * @returns {void}
    */
-  static i(msg: any, tag?: string) {
-    if (Logger.LOGGER_LEVEL <= 2) console.info(`[${tag || `${Logger.TAG} INFO`}] > `, msg);
+  static i(...args: any[]) {
+    if (Logger.LOGGER_LEVEL <= 2)
+      Logger.HIDE_TAG
+        ? console.info(...args)
+        : console.info(`%c[${Logger.TAG} INFO] > `, 'background:#1677ff;color: #FFF', ...args);
   }
 
   /**
@@ -70,14 +75,15 @@ class Logger {
    *
    * @example
    * Logger.v("verbose message") // [LOGGER VERBOSE] > verbose message
-   * Logger.v("verbose message", "VERBOSE") // [VERBOSE] > verbose message
    *
-   * @param {any} msg verbose message
-   * @param {string} tag logger tag
+   * @param {...any[]} args verbose messages
    * @returns {void}
    */
-  static v(msg: any, tag?: string) {
-    if (Logger.LOGGER_LEVEL <= 1) console.log(`[${tag || `${Logger.TAG} VERBOSE`}] > `, msg);
+  static v(...args: any[]) {
+    if (Logger.LOGGER_LEVEL <= 1)
+      Logger.HIDE_TAG
+        ? console.log(...args)
+        : console.log(`%c[${Logger.TAG} VERBOSE] > `, 'background:#52c41a;color: #FFF', ...args);
   }
 
   /**
@@ -88,12 +94,15 @@ class Logger {
    * Logger.d("debug message") // [LOGGER DEBUG] > debug message
    * Logger.d("debug message", "DEBUG") // [DEBUG] > debug message
    *
-   * @param {any} msg debug message
-   * @param {string} tag logger tag
+   * @param {...any[]} msg debug messages
    * @returns {void}
    */
-  static d(msg: any, tag?: string) {
-    if (Logger.LOGGER_LEVEL < 1) console.debug(`[${tag || `${Logger.TAG} DEBUG`}] > `, msg);
+  static d(...args: any[]) {
+    console.debug('debug', Logger.LOGGER_LEVEL < 1);
+    if (Logger.LOGGER_LEVEL < 1)
+      Logger.HIDE_TAG
+        ? console.debug(...args)
+        : console.debug(`[${Logger.TAG} DEBUG] > `, 'background:#52c41a;color: #FFF', ...args);
   }
 
   /**
@@ -101,13 +110,14 @@ class Logger {
    * @static
    *
    * @example
-   * Logger.setOptions({level: 0}) // set logger level
+   * Logger.setOptions({level: 'INFO'}) // set logger level
    *
    * @param {LoggerOptions} options logger options
    * @return {void}
    */
   static setOptions(options: LoggerOptions) {
     Logger.LOGGER_LEVEL = Logger._matchLevel(options.level);
+    Logger.HIDE_TAG = !!options.hideTag;
   }
 
   /**
@@ -116,12 +126,12 @@ class Logger {
    * @private
    *
    * @example
-   * Logger._matchLevel("DEBUG")
+   * Logger._matchLevel("DEBUG") // 0
    *
    * @param {LoggerLevel} level logger level
    * @return {number}
    */
-  private static _matchLevel(level: LoggerLevel) {
+  private static _matchLevel(level?: LoggerLevel) {
     let logLevel = 0;
     switch (level) {
       case 'DEBUG':

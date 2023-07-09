@@ -30,9 +30,7 @@ class Logger {
    */
   static e(...args: any[]) {
     if (Logger.LOGGER_LEVEL <= 4)
-      Logger.HIDE_TAG
-        ? console.error(...args)
-        : console.error(`%c[${Logger.TAG} ERROR] > `, 'background:red;color: #FFF', ...args);
+      Logger.HIDE_TAG ? console.error(...args) : console.error(`[${Logger.TAG} ERROR] > `, ...args);
   }
 
   /**
@@ -47,9 +45,7 @@ class Logger {
    */
   static w(...args: any[]) {
     if (Logger.LOGGER_LEVEL <= 3)
-      Logger.HIDE_TAG
-        ? console.warn(...args)
-        : console.warn(`%c[${Logger.TAG} WARN] > `, 'background:#faad14;color: #FFF', ...args);
+      Logger.HIDE_TAG ? console.warn(...args) : console.warn(`[${Logger.TAG} WARN] > `, ...args);
   }
 
   /**
@@ -64,9 +60,7 @@ class Logger {
    */
   static i(...args: any[]) {
     if (Logger.LOGGER_LEVEL <= 2)
-      Logger.HIDE_TAG
-        ? console.info(...args)
-        : console.info(`%c[${Logger.TAG} INFO] > `, 'background:#1677ff;color: #FFF', ...args);
+      Logger.HIDE_TAG ? console.info(...args) : console.info(`[${Logger.TAG} INFO] > `, ...args);
   }
 
   /**
@@ -81,9 +75,7 @@ class Logger {
    */
   static v(...args: any[]) {
     if (Logger.LOGGER_LEVEL <= 1)
-      Logger.HIDE_TAG
-        ? console.log(...args)
-        : console.log(`%c[${Logger.TAG} VERBOSE] > `, 'background:#52c41a;color: #FFF', ...args);
+      Logger.HIDE_TAG ? console.log(...args) : console.log(`[${Logger.TAG} VERBOSE] > `, ...args);
   }
 
   /**
@@ -100,9 +92,7 @@ class Logger {
   static d(...args: any[]) {
     console.debug('debug', Logger.LOGGER_LEVEL < 1);
     if (Logger.LOGGER_LEVEL < 1)
-      Logger.HIDE_TAG
-        ? console.debug(...args)
-        : console.debug(`[${Logger.TAG} DEBUG] > `, 'background:#52c41a;color: #FFF', ...args);
+      Logger.HIDE_TAG ? console.debug(...args) : console.debug(`[${Logger.TAG} DEBUG] > `, ...args);
   }
 
   /**

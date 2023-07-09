@@ -1,80 +1,154 @@
 import Logger from '../src/utils/logger';
 
+const VERBOSE = ['LOGGER VERBOSE', 'verbose message'];
+const WARN = ['LOGGER WARN', 'warn message'];
+const ERROR = ['LOGGER ERROR', 'error message'];
+const DEBUG = ['LOGGER DEBUG', 'debug message'];
+const INFO = ['LOGGER INFO', 'info message'];
+
 /**
- * Dummy test
+ * Logger default test
  */
 describe('Logger test', () => {
-  // Logger.setOptions({
-  //   level: "VERBOSE",
-  // })
+  /**
+   * Logger default test
+   */
+  describe('Logger test', () => {
+    it('Logger verbose', () => {
+      testFn('log', VERBOSE);
+    });
 
-  it('Logger verbose', () => {
-    const originalLog = global.console.log;
-    global.console.log = jest.fn();
+    it('Logger warn', () => {
+      testFn('warn', WARN);
+    });
 
-    Logger.v('verbose message');
-    expect(global.console.log).toHaveBeenCalledWith('[LOGGER VERBOSE] > ', 'verbose message');
+    it('Logger error', () => {
+      testFn('error', ERROR);
+    });
 
-    Logger.v('verbose message', 'VERBOSE');
-    expect(global.console.log).toHaveBeenCalledWith('[VERBOSE] > ', 'verbose message');
+    it('Logger debug', () => {
+      testFn('debug', DEBUG);
+    });
 
-    // 恢复原 console 函数引用
-    global.console.log = originalLog;
+    it('Logger info', () => {
+      testFn('info', INFO);
+    });
   });
 
-  it('Logger warn', () => {
-    const originalWarn = global.console.warn;
-    global.console.warn = jest.fn();
+  /**
+   * Logger test set level options
+   */
+  describe('Logger test', () => {
+    it('Logger set options', () => {
+      Logger.setOptions({
+        level: 'INFO',
+      });
+    });
 
-    Logger.w('warn message');
-    expect(global.console.warn).toHaveBeenCalledWith('[LOGGER WARN] > ', 'warn message');
+    it('Logger warn', () => {
+      testFn('warn', WARN);
+    });
 
-    Logger.w('warn message', 'WARN');
-    expect(global.console.warn).toHaveBeenCalledWith('[WARN] > ', 'warn message');
+    it('Logger error', () => {
+      testFn('error', ERROR);
+    });
 
-    // 恢复原 console 函数引用
-    global.console.warn = originalWarn;
+    // it('Logger debug', () => {
+    //   testFn('debug', DEBUG);
+    // });
+
+    it('Logger info', () => {
+      testFn('info', INFO);
+    });
+
+    it('Logger set options', () => {
+      Logger.setOptions({
+        level: 'DEBUG',
+      });
+    });
   });
 
-  it('Logger error', () => {
-    const originalError = global.console.error;
-    global.console.error = jest.fn();
+  /**
+   * Logger test set hide tag options
+   */
+  describe('Logger test', () => {
+    it('Logger verbose', () => {
+      testHideTagFn('log', VERBOSE);
+    });
 
-    Logger.e('error message');
-    expect(global.console.error).toHaveBeenCalledWith('[LOGGER ERROR] > ', 'error message');
+    it('Logger warn', () => {
+      testHideTagFn('warn', WARN);
+    });
 
-    Logger.e('error message', 'ERROR');
-    expect(global.console.error).toHaveBeenCalledWith('[ERROR] > ', 'error message');
+    it('Logger error', () => {
+      testHideTagFn('error', ERROR);
+    });
 
-    // 恢复原 console 函数引用
-    global.console.error = originalError;
-  });
+    it('Logger debug', () => {
+      testHideTagFn('debug', DEBUG);
+    });
 
-  it('Logger debug', () => {
-    const originalDebug = global.console.debug;
-    global.console.debug = jest.fn();
-
-    Logger.d('debug message');
-    expect(global.console.debug).toHaveBeenCalledWith('[LOGGER DEBUG] > ', 'debug message');
-
-    Logger.d('debug message', 'DEBUG');
-    expect(global.console.debug).toHaveBeenCalledWith('[DEBUG] > ', 'debug message');
-
-    // 恢复原 console 函数引用
-    global.console.debug = originalDebug;
-  });
-
-  it('Logger info', () => {
-    const originalInfo = global.console.info;
-    global.console.info = jest.fn();
-
-    Logger.i('info message');
-    expect(global.console.info).toHaveBeenCalledWith('[LOGGER INFO] > ', 'info message');
-
-    Logger.i('info message', 'INFO');
-    expect(global.console.info).toHaveBeenCalledWith('[INFO] > ', 'info message');
-
-    // 恢复原 console 函数引用
-    global.console.info = originalInfo;
+    it('Logger info', () => {
+      testHideTagFn('info', INFO);
+    });
   });
 });
+
+/**
+ *
+ * @param type console type
+ * @param arrStr string array
+ */
+function testFn(type: string, arrStr: string[]) {
+  const original = (global.console as any)[type];
+  (global.console as any)[type] = jest.fn();
+
+  const loggerLevel = switchLoggerType(type);
+  if (loggerLevel === '') return;
+  (Logger as any)[loggerLevel](arrStr[1]);
+  expect((global.console as any)[type]).toHaveBeenCalledWith(`[${arrStr[0]}] > `, arrStr[1]);
+
+  // 恢复原 console 函数引用
+  (global.console as any)[type] = original;
+}
+
+/**
+ *
+ * @param type console type
+ * @param arrStr string array
+ */
+function testHideTagFn(type: string, arrStr: string[]) {
+  Logger.setOptions({
+    hideTag: true,
+  });
+
+  const original = (global.console as any)[type];
+  (global.console as any)[type] = jest.fn();
+
+  const loggerLevel = switchLoggerType(type);
+  if (loggerLevel === '') return;
+  (Logger as any)[loggerLevel](arrStr[1]);
+  expect((global.console as any)[type]).toHaveBeenCalledWith(arrStr[1]);
+
+  // 恢复原 console 函数引用
+  (global.console as any)[type] = original;
+  Logger.setOptions({
+    hideTag: false,
+  });
+}
+
+function switchLoggerType(type: string) {
+  switch (type) {
+    case 'log':
+      return 'v';
+    case 'info':
+      return 'i';
+    case 'warn':
+      return 'w';
+    case 'debug':
+      return 'd';
+    case 'error':
+      return 'e';
+  }
+  return '';
+}

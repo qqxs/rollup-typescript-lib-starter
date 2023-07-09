@@ -2,7 +2,7 @@ import EventEmitter from '../src';
 import Logger from '../src/utils/logger';
 
 /**
- * Dummy test
+ * EventEmitter test
  */
 describe('EventEmitter test', () => {
   it('works if true is truthy', () => {

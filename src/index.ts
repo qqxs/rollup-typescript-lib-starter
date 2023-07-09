@@ -9,6 +9,9 @@ export interface EventEmitterInter {
   once: (type: string, fn: EventCallbackFn) => void;
 }
 
+Logger.setOptions({
+  hideTag: true,
+});
 /**
  * @class
  * @classdesc 发布订阅

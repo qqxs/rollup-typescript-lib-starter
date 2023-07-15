@@ -90,7 +90,6 @@ class Logger {
    * @returns {void}
    */
   static d(...args: any[]) {
-    console.debug('debug', Logger.LOGGER_LEVEL < 1);
     if (Logger.LOGGER_LEVEL < 1)
       Logger.HIDE_TAG ? console.debug(...args) : console.debug(`[${Logger.TAG} DEBUG] > `, ...args);
   }

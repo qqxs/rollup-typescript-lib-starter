@@ -31,10 +31,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      # - name: Build Packages
-      #   run: pnpm run build
+      - name: Build Packages
+        run: pnpm run build
 
-      # 发布npm 发布前执行了prepublishOnly
+      - name: Entry dist
+        run: cd dist
+
+      # 发布npm
       - name: Publish npm
         run: npm publish
         env:

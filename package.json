@@ -22,7 +22,6 @@
     "clean": "rimraf docs dist coverage",
     "prepare": "husky install",
     "preinstall": "npx only-allow pnpm",
-    "prepublishOnly": "npm run build",
     "copy": "gulp"
   },
   "repository": {

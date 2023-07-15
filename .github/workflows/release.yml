@@ -32,14 +32,14 @@ jobs:
         run: pnpm install
 
       - name: Build Packages
-        run: pnpm run build
+        run: pnpm run test
 
-      - name: Entry dist
-        run: cd dist
+      - name: Build Packages
+        run: pnpm run build
 
       # 发布npm
       - name: Publish npm
-        run: npm publish
+        run: cd dist && npm publish
         env:
           # 这里需要几个 Token 变量
           # NPM_TOKEN 需要在 npm 网站生成。

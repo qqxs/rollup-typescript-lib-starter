@@ -30,9 +30,7 @@ class Logger {
    */
   static e(...args: any[]) {
     if (Logger.LOGGER_LEVEL <= 4)
-      Logger.HIDE_TAG
-        ? console.error(...args)
-        : console.error(`%c[${Logger.TAG} ERROR] > `, 'color:red', ...args);
+      Logger.HIDE_TAG ? console.error(...args) : console.error(`[${Logger.TAG} ERROR] > `, ...args);
   }
 
   /**

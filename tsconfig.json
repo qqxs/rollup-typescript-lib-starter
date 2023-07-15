@@ -19,13 +19,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
-  "include": [
-    "src/**/*",
-    "config/**/*.ts",
-    "__tests__",
-    ".eslintrc.js",
-    "babel.config.js",
-    "commitlint.config.js"
-  ],
-  "exclude": ["node_modules", "dist", "coverage", "docs", "example"]
+  "include": ["src/**/*", "config/**/*.ts", "__tests__"],
+  "exclude": ["node_modules", "dist", "coverage", "docs", "example"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

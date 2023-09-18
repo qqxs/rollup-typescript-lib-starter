@@ -45,6 +45,8 @@
         title.addEventListener('click', () => {
           eventEmitter.emit('click');
         });
+
+        console.log(eventEmitter.version());
       })();
     </script>
   </body>

@@ -12,6 +12,8 @@ import eslint from '@rollup/plugin-eslint';
 
 // node >= 10.16.0
 import filesize from 'rollup-plugin-filesize';
+import replace from '@rollup/plugin-replace';
+import pkg from '../package.json';
 
 import isDev from './isDev';
 
@@ -34,5 +36,8 @@ export default [
   resolve(),
   commonjs({ extensions: ['.js', '.ts'] }),
   babel({ babelHelpers: 'bundled' }),
+  replace({
+    __VERSION__: pkg.version,
+  }),
   !isDev && filesize(),
 ] as Plugin[];

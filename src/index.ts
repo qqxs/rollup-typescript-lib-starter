@@ -79,6 +79,10 @@ class EventEmitter implements EventEmitterInter {
     };
     this.on(type, cb);
   }
+
+  version() {
+    return '__VERSION__';
+  }
 }
 
 export default EventEmitter;

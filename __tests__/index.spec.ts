@@ -1,5 +1,4 @@
 import EventEmitter from '../src';
-import Logger from '../src/utils/logger';
 
 /**
  * EventEmitter test
@@ -17,7 +16,6 @@ describe('EventEmitter test', () => {
     const event = new EventEmitter();
 
     event.on('click', () => {
-      Logger.v('click');
       done();
     });
     event.emit('click');
@@ -27,7 +25,6 @@ describe('EventEmitter test', () => {
     const event = new EventEmitter();
 
     event.once('once-click', () => {
-      Logger.v('once-click');
       done();
     });
     event.emit('once-click');
@@ -37,7 +34,6 @@ describe('EventEmitter test', () => {
     const event = new EventEmitter();
 
     event.on('click', () => {
-      Logger.v('once-click');
       done();
     });
 
@@ -49,15 +45,18 @@ describe('EventEmitter test', () => {
   it('EventEmitterClass emit', (done) => {
     const event = new EventEmitter();
 
-    event.on('click', () => {
-      Logger.v('click');
-    });
+    event.on('click', () => {});
 
     event.on('click', () => {
-      Logger.v('click');
       done();
     });
 
     event.emit('click');
+  });
+
+  it('EventEmitterClass version', (done) => {
+    const event = new EventEmitter();
+    event.version();
+    done();
   });
 });

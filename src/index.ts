@@ -1,5 +1,3 @@
-import Logger from './utils/logger';
-
 export type EventCallbackFn = () => any;
 
 export interface EventEmitterInter {
@@ -9,9 +7,6 @@ export interface EventEmitterInter {
   once: (type: string, fn: EventCallbackFn) => void;
 }
 
-// Logger.setOptions({
-//   hideTag: true,
-// });
 /**
  * @class
  * @classdesc 发布订阅
@@ -35,7 +30,6 @@ class EventEmitter implements EventEmitterInter {
     } else {
       this.listen[type] = [fn];
     }
-    Logger.e(fn);
     console.log('this is console.log');
   }
 

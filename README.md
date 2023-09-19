@@ -22,9 +22,3 @@ yarn run docs
 # test
 yarn run test
 ```
-
-### Logger
-
-[Logger](./src/utils/logger.ts) 用来打印日志，其他文件中`console`在构建生产环境时移除， 只有[Logger](./src/utils/logger.ts)中日志打印才可以生效。
-
-<!-- test -->

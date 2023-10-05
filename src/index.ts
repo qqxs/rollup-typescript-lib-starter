@@ -8,7 +8,7 @@ export interface EventEmitterInter {
 }
 
 /**
- * @class
+ * @class EventEmitter
  * @classdesc 发布订阅
  */
 class EventEmitter implements EventEmitterInter {

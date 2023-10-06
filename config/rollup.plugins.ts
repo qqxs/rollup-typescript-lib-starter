@@ -1,15 +1,10 @@
 import { type Plugin } from 'rollup';
-import typescript from '@rollup/plugin-typescript';
 // Convert CommonJS modules to ES6
 import commonjs from '@rollup/plugin-commonjs';
-// A Rollup which converts ES2015+ code with the Bublé compiler.
-import buble from '@rollup/plugin-buble';
-// babel
-import { babel } from '@rollup/plugin-babel';
 // so Rollup can find `rxjs`. lib
 import resolve from '@rollup/plugin-node-resolve';
 import eslint from '@rollup/plugin-eslint';
-
+import swc from '@rollup/plugin-swc';
 // node >= 10.16.0
 import filesize from 'rollup-plugin-filesize';
 import replace from '@rollup/plugin-replace';
@@ -24,18 +19,17 @@ export default [
     include: ['src/**/*.ts', 'src/**/*.js'],
     exclude: ['node_modules/**', '**/__tests__/**'],
   }),
-  typescript({
-    exclude: ['**/__tests__/**'],
-    include: ['**/src/**'],
-    sourceMap: isDev,
-    inlineSources: isDev,
-  }),
-  buble({
-    include: ['**/src/**'],
+  swc({
+    // https://swc.rs/docs/configuration/swcrc
+    swc: {
+      // jsc: {
+      //   // target: 'es5',
+      // },
+    },
+    include: ['**/config/**', '**/src/**'],
   }),
   resolve(),
   commonjs({ extensions: ['.js', '.ts'] }),
-  babel({ babelHelpers: 'bundled' }),
   replace({
     __VERSION__: pkg.version,
   }),

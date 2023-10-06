@@ -37,7 +37,8 @@
   "keywords": [
     "rollup",
     "typescript",
-    "lib"
+    "lib",
+    "swc"
   ],
   "author": "ShineShao <xiaoshaoqq@gmail.com>",
   "license": "MIT",

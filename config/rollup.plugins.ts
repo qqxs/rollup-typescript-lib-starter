@@ -15,7 +15,7 @@ import filesize from 'rollup-plugin-filesize';
 import replace from '@rollup/plugin-replace';
 import pkg from '../package.json';
 
-import isDev from './isDev';
+import { isDev } from './env';
 
 export default [
   eslint({

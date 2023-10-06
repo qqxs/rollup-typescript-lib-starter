@@ -54,7 +54,7 @@ export default [
         // ES2015 Module 规范,
         // https://exploringjs.com/es6/ch_modules.html
         exports: 'auto',
-        file: pkg.esm,
+        file: pkg.module,
         format: 'esm',
         sourcemap,
         banner,

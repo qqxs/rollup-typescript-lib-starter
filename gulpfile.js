@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const gulp = require('gulp');
-
 const through = require('through2');
 
 function generatePackageJSON() {
@@ -18,12 +18,18 @@ function generatePackageJSON() {
         delete parsed.jest;
 
         //
-        const distKeys = ['main', 'types', 'esm', 'amd', 'iife', 'umd', 'umdMin'];
+        const distKeys = ['main', 'types', 'module', 'amd', 'iife', 'umd', 'umdMin'];
         for (const key of distKeys) {
           if (parsed[key]) {
             parsed[key] = parsed[key].replace(/\.\/dist\/|dist\//, '');
           }
         }
+
+        const exportsObj = {};
+        for (const key in parsed.exports) {
+          exportsObj[key] = parsed.exports[key].replace(/\.\/dist\/|dist\//, './');
+        }
+        parsed.exports = exportsObj;
 
         const stringified = JSON.stringify(parsed, null, 2);
         file.contents = Buffer.from(stringified);

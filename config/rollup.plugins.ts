@@ -21,9 +21,9 @@ export default [
   swc({
     // https://swc.rs/docs/configuration/swcrc
     swc: {
-      // jsc: {
-      //   // target: 'es5',
-      // },
+      jsc: {
+        target: isDev ? 'es2015' : 'es5',
+      },
     },
     include: ['**/config/**', '**/src/**'],
   }),

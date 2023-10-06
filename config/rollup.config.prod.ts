@@ -1,5 +1,5 @@
-import configList from './rollup.config';
 import strip from '@rollup/plugin-strip';
+import configList from './rollup.config';
 
 configList.map((config) => {
   config.plugins = [

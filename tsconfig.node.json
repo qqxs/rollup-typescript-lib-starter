@@ -8,7 +8,6 @@
   },
   "include": [
     "scripts/**/*",
-    "babel.config.js",
     "commitlint.config.js",
     ".eslintrc.cjs",
     ".prettierrc.js",

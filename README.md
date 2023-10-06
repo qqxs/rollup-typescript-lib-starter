@@ -4,7 +4,7 @@
 
 用来开发前端库，支持 Typescript/Javascript。
 
-### Usage
+### Use
 
 ```sh
 # install

@@ -9,8 +9,7 @@ import swc from '@rollup/plugin-swc';
 import filesize from 'rollup-plugin-filesize';
 import replace from '@rollup/plugin-replace';
 import pkg from '../package.json';
-
-import isDev from './isDev';
+import { isDev } from './env';
 
 export default [
   eslint({
@@ -22,9 +21,9 @@ export default [
   swc({
     // https://swc.rs/docs/configuration/swcrc
     swc: {
-      // jsc: {
-      //   // target: 'es5',
-      // },
+      jsc: {
+        target: isDev ? 'es2015' : 'es5',
+      },
     },
     include: ['**/config/**', '**/src/**'],
   }),

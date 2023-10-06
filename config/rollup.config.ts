@@ -5,8 +5,7 @@ import terser from '@rollup/plugin-terser';
 import { visualizer } from 'rollup-plugin-visualizer';
 // rollup common plugin
 import rollupPlugins from './rollup.plugins';
-import isDev from './isDev';
-import isAnalyzer from './isAnalyzer';
+import { isDev, isAnalyzer } from './env';
 import pkg from '../package.json';
 
 // 大驼峰命名

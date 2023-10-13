@@ -1,4 +1,4 @@
-import './styles';
+import './style';
 
 export type EventCallbackFn = () => any;
 

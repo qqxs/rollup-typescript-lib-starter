@@ -13,6 +13,9 @@ const name = upperCamel(pkg.name, '-');
 
 const input = 'src/index.ts';
 
+// const styleInput = ;
+// const styleOutput = 'dist/style/index.esm.js';
+
 const banner = `/*
 *
 * ${name}.js v${pkg.version}
@@ -43,6 +46,20 @@ const UMD = {
   ],
   plugins: [...rollupPlugins],
 };
+
+// const Sass = {
+//   input: styleInput,
+//   output: [
+//     {
+//       exports: 'auto',
+//       file: styleOutput,
+//       format: 'esm',
+//       sourcemap,
+//       banner,
+//     },
+//   ],
+//   plugins: [...rollupPlugins],
+// };
 
 export default isDev
   ? [UMD]

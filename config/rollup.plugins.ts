@@ -8,7 +8,6 @@ import swc from '@rollup/plugin-swc';
 // node >= 10.16.0
 import filesize from 'rollup-plugin-filesize';
 import replace from '@rollup/plugin-replace';
-import scss from 'rollup-plugin-scss';
 import postcss from 'rollup-plugin-postcss';
 import cssnano from 'cssnano';
 import autoprefixer from 'autoprefixer';
@@ -36,12 +35,10 @@ export default [
   replace({
     __VERSION__: pkg.version,
   }),
-  scss({
-    fileName: 'index.css',
-  }),
   postcss({
-    plugins: [autoprefixer(), cssnano()],
+    plugins: [autoprefixer(), cssnano({ preset: 'default' })],
     sourceMap: isDev,
+    extract: false,
   }),
   !isDev && filesize(),
 ] as Plugin[];

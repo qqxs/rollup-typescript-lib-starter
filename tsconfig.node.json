@@ -11,6 +11,8 @@
     "commitlint.config.js",
     ".eslintrc.cjs",
     ".prettierrc.js",
+    "jest.setup.ts",
+    "jest.config.ts",
     "package.json",
     "gulpfile.js"
   ]

@@ -1,3 +1,5 @@
+import './style';
+
 export type EventCallbackFn = () => any;
 
 export interface EventEmitterInter {

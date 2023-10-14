@@ -31,6 +31,7 @@ const config: Config = {
     '!**/__mocks__/**',
     '!**/node_modules/**',
     '!**/*.d.ts',
+    '!dist/**/*',
   ],
 
   // Important: order matters, specific rules should be defined first

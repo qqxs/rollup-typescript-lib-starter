@@ -34,6 +34,7 @@ export default [
   commonjs({ extensions: ['.js', '.ts'] }),
   replace({
     __VERSION__: pkg.version,
+    preventAssignment: true,
   }),
   postcss({
     plugins: [autoprefixer(), cssnano({ preset: 'default' })],

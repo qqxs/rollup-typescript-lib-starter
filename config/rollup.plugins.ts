@@ -8,6 +8,9 @@ import swc from '@rollup/plugin-swc';
 // node >= 10.16.0
 import filesize from 'rollup-plugin-filesize';
 import replace from '@rollup/plugin-replace';
+import postcss from 'rollup-plugin-postcss';
+import cssnano from 'cssnano';
+import autoprefixer from 'autoprefixer';
 import pkg from '../package.json';
 import { isDev } from './env';
 
@@ -25,12 +28,18 @@ export default [
         target: isDev ? 'es2015' : 'es5',
       },
     },
-    include: ['**/config/**', '**/src/**'],
+    include: ['**/config/**/*.{ts,js}', '**/src/**/*.{ts,js}'],
   }),
   resolve(),
   commonjs({ extensions: ['.js', '.ts'] }),
   replace({
     __VERSION__: pkg.version,
+    preventAssignment: true,
+  }),
+  postcss({
+    plugins: [autoprefixer(), cssnano({ preset: 'default' })],
+    sourceMap: isDev,
+    extract: false,
   }),
   !isDev && filesize(),
 ] as Plugin[];

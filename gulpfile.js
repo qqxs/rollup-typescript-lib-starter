@@ -31,6 +31,11 @@ function generatePackageJSON() {
         }
         parsed.exports = exportsObj;
 
+        delete parsed.amd;
+        delete parsed.iife;
+        delete parsed.umd;
+        delete parsed.umdMin;
+
         const stringified = JSON.stringify(parsed, null, 2);
         file.contents = Buffer.from(stringified);
         cb(null, file);

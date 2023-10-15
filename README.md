@@ -8,17 +8,17 @@
 
 ```sh
 # install
-yarn install
+pnpm install
 
 # development
-yarn run dev
+pnpm run dev
 
 # build dist and api document
-yarn run build
+pnpm run build
 
 # api document
-yarn run docs
+pnpm run docs
 
 # test
-yarn run test
+pnpm run test
 ```

@@ -1,13 +1,13 @@
 {
   "name": "rollup-typescript-lib-starter",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "start rollup typescript develop javascript lib",
   "main": "dist/index.js",
   "amd": "dist/index.amd.js",
   "iife": "dist/index.iife.js",
   "umd": "dist/index.umd.js",
   "umdMin": "dist/index.umd.min.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/types/main.d.ts",
   "module": "dist/index.esm.js",
   "exports": {
     "types": "./types/index.d.ts",
@@ -28,7 +28,7 @@
     "prepare": "husky install",
     "preinstall": "npx only-allow pnpm",
     "copy": "gulp",
-    "types": "tsc src/index.ts --emitDeclarationOnly --declaration --declarationDir dist/types"
+    "types": "tsc src/main.ts --emitDeclarationOnly --declaration --declarationDir dist/types"
   },
   "repository": {
     "type": "git",

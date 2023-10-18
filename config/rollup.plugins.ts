@@ -37,6 +37,7 @@ export default [
   commonjs({ extensions: ['.js', '.ts'] }),
   babel({ babelHelpers: 'bundled' }),
   replace({
+    preventAssignment: true,
     __VERSION__: pkg.version,
   }),
   !isDev && filesize(),

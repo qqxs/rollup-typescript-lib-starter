@@ -19,7 +19,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
-  "include": ["src/**/*", "config/**/*.ts", "__tests__"],
+  "include": ["src/**/*", "config/**/*.ts", "__tests__", "jest.config.ts", "jest.setup.ts"],
   "exclude": ["node_modules", "dist", "coverage", "docs", "example"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

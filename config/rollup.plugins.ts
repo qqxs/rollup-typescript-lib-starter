@@ -13,6 +13,11 @@ import eslint from '@rollup/plugin-eslint';
 // node >= 10.16.0
 import filesize from 'rollup-plugin-filesize';
 import replace from '@rollup/plugin-replace';
+
+import postcss from 'rollup-plugin-postcss';
+import cssnano from 'cssnano';
+import autoprefixer from 'autoprefixer';
+
 import pkg from '../package.json';
 
 import { isDev } from './env';
@@ -25,13 +30,14 @@ export default [
     exclude: ['node_modules/**', '**/__tests__/**'],
   }),
   typescript({
-    exclude: ['**/__tests__/**'],
-    include: ['**/src/**'],
+    exclude: ['**/__tests__/**/*.{ts,js}'],
+    include: ['**/src/**/*.{ts,js}'],
     sourceMap: isDev,
     inlineSources: isDev,
+    declaration: false,
   }),
   buble({
-    include: ['**/src/**'],
+    include: ['**/src/**/*.{ts,js}'],
   }),
   resolve(),
   commonjs({ extensions: ['.js', '.ts'] }),
@@ -39,6 +45,11 @@ export default [
   replace({
     preventAssignment: true,
     __VERSION__: pkg.version,
+  }),
+  postcss({
+    plugins: [autoprefixer(), cssnano({ preset: 'default' })],
+    sourceMap: isDev,
+    extract: false,
   }),
   !isDev && filesize(),
 ] as Plugin[];

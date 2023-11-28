@@ -1,6 +1,6 @@
 {
   "name": "rollup-typescript-lib-starter",
-  "version": "0.3.13",
+  "version": "0.3.14",
   "description": "start rollup typescript develop javascript lib",
   "main": "dist/index.js",
   "esm": "dist/index.esm.js",
@@ -17,8 +17,8 @@
   },
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "cross-env NODE_ENV=production rollup -c ./config/rollup.config.prod.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs && npm run types && npm run copy",
-    "dev": "cross-env NODE_ENV=development rollup -c ./config/rollup.config.dev.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs --watch",
+    "build": "cross-env NODE_ENV=production rollup -c ./config/rollup.config.prod.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs && npm run copy",
+    "dev": "rimraf dist && cross-env NODE_ENV=development rollup -c ./config/rollup.config.dev.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs --watch",
     "docs": "rimraf docs && typedoc --out docs src",
     "analyzer": "cross-env ANALYZER=true npm run build",
     "lint": "eslint src --fix --ext .ts,.tsx,.js,.jsx",
@@ -28,8 +28,7 @@
     "clean": "rimraf docs dist coverage",
     "prepare": "husky install",
     "preinstall": "npx only-allow pnpm",
-    "copy": "gulp",
-    "types": "tsc src/main.ts --emitDeclarationOnly --declaration --declarationDir dist/types"
+    "copy": "gulp"
   },
   "repository": {
     "type": "git",

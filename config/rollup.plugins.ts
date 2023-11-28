@@ -22,34 +22,40 @@ import pkg from '../package.json';
 
 import { isDev } from './env';
 
-export default [
-  eslint({
-    throwOnError: true, // lint 结果有错误将会抛出异常
-    throwOnWarning: true,
-    include: ['src/**/*.ts', 'src/**/*.js'],
-    exclude: ['node_modules/**', '**/__tests__/**'],
-  }),
-  typescript({
-    exclude: ['**/__tests__/**/*.{ts,js}'],
-    include: ['**/src/**/*.{ts,js}'],
-    sourceMap: isDev,
-    inlineSources: isDev,
-    declaration: false,
-  }),
-  buble({
-    include: ['**/src/**/*.{ts,js}'],
-  }),
-  resolve(),
-  commonjs({ extensions: ['.js', '.ts'] }),
-  babel({ babelHelpers: 'bundled' }),
-  replace({
-    preventAssignment: true,
-    __VERSION__: pkg.version,
-  }),
-  postcss({
-    plugins: [autoprefixer(), cssnano({ preset: 'default' })],
-    sourceMap: isDev,
-    extract: false,
-  }),
-  !isDev && filesize(),
-] as Plugin[];
+export default (options: any) =>
+  (
+    [
+      eslint({
+        throwOnError: true, // lint 结果有错误将会抛出异常
+        throwOnWarning: true,
+        include: ['src/**/*.ts', 'src/**/*.js'],
+        exclude: ['node_modules/**', '**/__tests__/**'],
+      }),
+      typescript({
+        exclude: ['**/__tests__/**/*.{ts,js}'],
+        include: ['**/src/**/*.{ts,js}'],
+        sourceMap: isDev,
+        inlineSources: isDev,
+        declaration: !isDev,
+        declarationDir: isDev ? '' : 'dist/types',
+      }),
+      options.type === 'umd'
+        ? buble({
+            include: ['**/src/**/*.{ts,js}'],
+          })
+        : null,
+      resolve(),
+      commonjs({ extensions: ['.js', '.ts'] }),
+      options.type === 'umd' ? babel({ babelHelpers: 'bundled' }) : null,
+      replace({
+        preventAssignment: true,
+        __VERSION__: pkg.version,
+      }),
+      postcss({
+        plugins: [autoprefixer(), cssnano({ preset: 'default' })],
+        sourceMap: isDev,
+        extract: false,
+      }),
+      !isDev && filesize(),
+    ] as Plugin[]
+  ).filter(Boolean);

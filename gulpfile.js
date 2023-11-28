@@ -35,7 +35,7 @@ function generatePackageJSON() {
 
 function copyFile() {
   return gulp
-    .src(['README.md', 'CHANGELOG.md', 'LICENSE'], { allowEmpty: true })
+    .src(['README.md', 'CHANGELOG.md', 'LICENSE', 'public/index.html'], { allowEmpty: true })
     .pipe(gulp.dest('dist'));
 }
 

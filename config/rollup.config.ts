@@ -41,12 +41,28 @@ const UMD = {
       banner,
     },
   ],
-  plugins: [...rollupPlugins],
+  plugins: [...rollupPlugins({ type: 'umd' })],
 };
 
 export default isDev
   ? [UMD]
   : ([
+      {
+        input,
+        output: [
+          {
+            exports: 'auto',
+            // Node 默认的模块规范, 可通过 Webpack 加载
+            // https://javascript.ruanyifeng.com/nodejs/module.html
+            // https://zh.wikipedia.org/wiki/CommonJS
+            file: pkg.main,
+            format: 'cjs',
+            sourcemap,
+            banner,
+          },
+        ],
+        plugins: [...rollupPlugins({ type: 'cjs' })],
+      },
       {
         input,
         output: [
@@ -60,16 +76,6 @@ export default isDev
           //   banner,
           //   extends: ['lib/hello', 'lodash']
           // },
-          {
-            exports: 'auto',
-            // Node 默认的模块规范, 可通过 Webpack 加载
-            // https://javascript.ruanyifeng.com/nodejs/module.html
-            // https://zh.wikipedia.org/wiki/CommonJS
-            file: pkg.main,
-            format: 'cjs',
-            sourcemap,
-            banner,
-          },
           {
             // ES2015 Module 规范,
             // https://exploringjs.com/es6/ch_modules.html
@@ -89,8 +95,7 @@ export default isDev
           //   banner,
           // },
         ],
-        plugins: [...rollupPlugins],
-        // external: ['rxjs'] // 如果你不想第三方库被打包进来，而可以在外面引入，配合使用的话，可以在rollup.config.js中配置external
+        plugins: [...rollupPlugins({ type: 'esm' })],
       },
       { ...UMD },
       {
@@ -106,7 +111,7 @@ export default isDev
           },
         ],
         plugins: [
-          ...rollupPlugins,
+          ...rollupPlugins({ type: 'umd' }),
           ...[terser(), isAnalyzer ? visualizer() : null].filter((plugin) => plugin !== null),
         ],
         // external: ['rxjs'] // 如果你不想第三方库被打包进来，而可以在外面引入，配合使用的话，可以在rollup.config.js中配置external

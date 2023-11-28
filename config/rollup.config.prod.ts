@@ -18,4 +18,4 @@ configList.map((config) => {
   return config;
 });
 
-module.exports = configList;
+export default configList;

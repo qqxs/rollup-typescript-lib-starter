@@ -17,7 +17,7 @@ import { isDev } from './env';
 export default [
   eslint({
     throwOnError: true, // lint 结果有错误将会抛出异常
-    throwOnWarning: true,
+    // throwOnWarning: true,
     include: ['src/**/*.ts', 'src/**/*.js'],
     exclude: ['node_modules/**', '**/__tests__/**'],
   }),

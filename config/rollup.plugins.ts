@@ -14,32 +14,33 @@ import autoprefixer from 'autoprefixer';
 import pkg from '../package.json';
 import { isDev } from './env';
 
-export default [
-  eslint({
-    throwOnError: true, // lint 结果有错误将会抛出异常
-    // throwOnWarning: true,
-    include: ['src/**/*.ts', 'src/**/*.js'],
-    exclude: ['node_modules/**', '**/__tests__/**'],
-  }),
-  swc({
-    // https://swc.rs/docs/configuration/swcrc
-    swc: {
-      jsc: {
-        target: isDev ? 'es2015' : 'es5',
+export default (props: any) =>
+  [
+    eslint({
+      throwOnError: true, // lint 结果有错误将会抛出异常
+      // throwOnWarning: true,
+      include: ['src/**/*.ts', 'src/**/*.js'],
+      exclude: ['node_modules/**', '**/__tests__/**'],
+    }),
+    swc({
+      // https://swc.rs/docs/configuration/swcrc
+      swc: {
+        jsc: {
+          target: props.target,
+        },
       },
-    },
-    include: ['**/config/**/*.{ts,js}', '**/src/**/*.{ts,js}'],
-  }),
-  resolve(),
-  commonjs({ extensions: ['.js', '.ts'] }),
-  replace({
-    __VERSION__: pkg.version,
-    preventAssignment: true,
-  }),
-  postcss({
-    plugins: [autoprefixer(), cssnano({ preset: 'default' })],
-    sourceMap: isDev,
-    extract: false,
-  }),
-  !isDev && filesize(),
-] as Plugin[];
+      include: ['**/config/**/*.{ts,js}', '**/src/**/*.{ts,js}'],
+    }),
+    resolve(),
+    commonjs({ extensions: ['.js', '.ts'] }),
+    replace({
+      __VERSION__: pkg.version,
+      preventAssignment: true,
+    }),
+    postcss({
+      plugins: [autoprefixer(), cssnano({ preset: 'default' })],
+      sourceMap: isDev,
+      extract: false,
+    }),
+    !isDev && filesize(),
+  ] as Plugin[];

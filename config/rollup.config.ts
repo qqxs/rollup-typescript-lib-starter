@@ -44,7 +44,7 @@ const UMD = {
       banner,
     },
   ],
-  plugins: [...rollupPlugins],
+  plugins: [...rollupPlugins({ target: 'es5' })],
 };
 
 // const Sass = {
@@ -87,15 +87,6 @@ export default isDev
             sourcemap,
             banner,
           },
-          {
-            // ES2015 Module 规范,
-            // https://exploringjs.com/es6/ch_modules.html
-            exports: 'auto',
-            file: pkg.module,
-            format: 'esm',
-            sourcemap,
-            banner,
-          },
           // {
           //   // 自执行函数, 可通过 <script> 标签加载
           //   // https://developer.mozilla.org/zh-CN/docs/Glossary/%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F
@@ -106,7 +97,23 @@ export default isDev
           //   banner,
           // },
         ],
-        plugins: [...rollupPlugins],
+        plugins: [...rollupPlugins({ target: 'es5' })],
+        // external: ['rxjs'] // 如果你不想第三方库被打包进来，而可以在外面引入，配合使用的话，可以在rollup.config.js中配置external
+      },
+      {
+        input,
+        output: [
+          {
+            // ES2015 Module 规范,
+            // https://exploringjs.com/es6/ch_modules.html
+            exports: 'auto',
+            file: pkg.module,
+            format: 'esm',
+            sourcemap,
+            banner,
+          },
+        ],
+        plugins: [...rollupPlugins({ target: 'es2015' })],
         // external: ['rxjs'] // 如果你不想第三方库被打包进来，而可以在外面引入，配合使用的话，可以在rollup.config.js中配置external
       },
       { ...UMD },
@@ -123,7 +130,7 @@ export default isDev
           },
         ],
         plugins: [
-          ...rollupPlugins,
+          ...rollupPlugins({ target: 'es5' }),
           ...[terser(), isAnalyzer ? visualizer() : null].filter((plugin) => plugin !== null),
         ],
         // external: ['rxjs'] // 如果你不想第三方库被打包进来，而可以在外面引入，配合使用的话，可以在rollup.config.js中配置external

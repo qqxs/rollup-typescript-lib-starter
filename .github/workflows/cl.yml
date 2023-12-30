@@ -28,3 +28,7 @@ jobs:
       - run: pnpm run test
       - run: pnpm run docs
       - run: pnpm run build
+
+      - run: cd ./example/esmodule
+      - run: pnpm install
+      - run: pnpm run build

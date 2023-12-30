@@ -3,6 +3,7 @@ import { type MergedRollupOptions } from 'rollup';
 // minify the Rollup bundle
 import terser from '@rollup/plugin-terser';
 import { visualizer } from 'rollup-plugin-visualizer';
+import { dts } from 'rollup-plugin-dts';
 // rollup common plugin
 import rollupPlugins from './rollup.plugins';
 import { isDev, isAnalyzer } from './env';
@@ -12,9 +13,6 @@ import pkg from '../package.json';
 const name = upperCamel(pkg.name, '-');
 
 const input = 'src/index.ts';
-
-// const styleInput = ;
-// const styleOutput = 'dist/style/index.esm.js';
 
 const banner = `/*
 *
@@ -47,19 +45,13 @@ const UMD = {
   plugins: [...rollupPlugins({ target: 'es5' })],
 };
 
-// const Sass = {
-//   input: styleInput,
-//   output: [
-//     {
-//       exports: 'auto',
-//       file: styleOutput,
-//       format: 'esm',
-//       sourcemap,
-//       banner,
-//     },
-//   ],
-//   plugins: [...rollupPlugins],
-// };
+// ts types
+const dtsConfig = {
+  input,
+  output: [{ file: 'dist/types/index.d.ts', format: 'es' }],
+  external: [/\.s[ac]ss$|\.css$|\.less/], // ignore .scss .sass .css .less file
+  plugins: [dts()],
+};
 
 export default isDev
   ? [UMD]
@@ -135,4 +127,5 @@ export default isDev
         ],
         // external: ['rxjs'] // 如果你不想第三方库被打包进来，而可以在外面引入，配合使用的话，可以在rollup.config.js中配置external
       },
+      dtsConfig,
     ].filter((config) => config !== null) as MergedRollupOptions[]);

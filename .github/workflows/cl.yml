@@ -31,4 +31,4 @@ jobs:
 
       - run: cd ./example/esmodule
       - run: pnpm install
-      - run: pnpm run dev
+      - run: pnpm run build

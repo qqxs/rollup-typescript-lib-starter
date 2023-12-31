@@ -18,7 +18,7 @@
     "prebuild": "npm run clean",
     "build": "cross-env NODE_ENV=production rollup -c ./config/rollup.config.prod.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs && npm run copy",
     "dev": "npm run clean && cross-env NODE_ENV=development rollup -c ./config/rollup.config.dev.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs --watch",
-    "docs": "rimraf docs && typedoc --out docs src",
+    "docs": "rimraf docs && typedoc",
     "analyzer": "cross-env ANALYZER=true npm run build",
     "lint": "eslint src --fix --ext .ts,.tsx,.js,.jsx",
     "fmt": "prettier --write \"{src,__tests__,config}/**/*.{ts,tsx,js,jsx}\"",

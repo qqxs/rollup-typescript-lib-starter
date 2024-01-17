@@ -20,6 +20,6 @@
     "resolveJsonModule": true
   },
   "include": ["src/**/*.ts", "src/**/*js", "config/**/*.ts", "__tests__", "__mocks__"],
-  "exclude": ["node_modules", "dist", "coverage", "docs", "example", "typedoc.config.js"],
+  "exclude": ["node_modules", "dist", "coverage", "docs", "example"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

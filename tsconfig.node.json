@@ -14,6 +14,7 @@
     "jest.setup.ts",
     "jest.config.ts",
     "package.json",
-    "gulpfile.js"
+    "gulpfile.js",
+    "typedoc.config.js"
   ]
 }

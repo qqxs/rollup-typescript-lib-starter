@@ -8,6 +8,7 @@ function generatePackageJSON() {
     .pipe(
       through.obj((file, enc, cb) => {
         const rawJSON = file.contents.toString();
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         const parsed = JSON.parse(rawJSON);
         delete parsed.scripts;
         delete parsed.devDependencies;

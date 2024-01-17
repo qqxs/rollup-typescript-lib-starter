@@ -1,6 +1,6 @@
 {
   "name": "rollup-typescript-lib-starter",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "description": "start rollup typescript develop javascript lib",
   "main": "dist/index.js",
   "amd": "dist/index.amd.js",
@@ -83,7 +83,7 @@
     "prettier": "^2.8.8",
     "pretty-quick": "^3.1.3",
     "rimraf": "^5.0.5",
-    "rollup": "^4.9.1",
+    "rollup": "^4.9.5",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-filesize": "^10.0.0",
     "rollup-plugin-postcss": "^4.0.2",
@@ -95,6 +95,7 @@
     "ts-node": "^10.9.2",
     "tslib": "^2.6.2",
     "typedoc": "^0.25.4",
+    "typedoc-plugin-rename-defaults": "^0.7.0",
     "typescript": "^5.3.3"
   },
   "engines": {
@@ -102,5 +103,18 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version",
+      "last 1 ie version"
+    ]
+  }
 }

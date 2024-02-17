@@ -4,6 +4,7 @@ import { type MergedRollupOptions } from 'rollup';
 import terser from '@rollup/plugin-terser';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { dts } from 'rollup-plugin-dts';
+import dayjs from 'dayjs';
 // rollup common plugin
 import rollupPlugins from './rollup.plugins';
 import { isDev, isAnalyzer } from './env';
@@ -14,12 +15,11 @@ const name = upperCamel(pkg.name, '-');
 
 const input = 'src/index.ts';
 
+// prettier-ignore
 const banner = `/*
 *
-* ${name}.js v${pkg.version}
-* Copyright (c) ${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()} ${
-  pkg.author
-}
+* ${pkg.name} v${pkg.version}
+* Copyright (c) ${dayjs().format("YYYY-MM-DD")} ${pkg.author}
 * Released under the MIT License.
 *
 */`;

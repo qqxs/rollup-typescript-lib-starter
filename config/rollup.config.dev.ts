@@ -8,12 +8,10 @@ configList.map((config, index) => {
   if (index === 0 && config) {
     config.plugins = [
       ...config.plugins,
-      ...[
-        serve({
-          port: PORT,
-          contentBase: [resolveFile('public'), resolveFile('dist')],
-        }),
-      ],
+      serve({
+        port: PORT,
+        contentBase: [resolveFile('public'), resolveFile('dist')],
+      }),
     ];
   }
 

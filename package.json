@@ -16,7 +16,7 @@
   },
   "scripts": {
     "prebuild": "npm run clean",
-    "build": "cross-env NODE_ENV=production rollup -c ./config/rollup.config.prod.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs && npm run copy",
+    "build": "cross-env NODE_ENV=production rollup -c ./config/rollup.config.prod.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs && npm run copy && npm run docs",
     "dev": "npm run clean && cross-env NODE_ENV=development rollup -c ./config/rollup.config.dev.ts --configPlugin @rollup/plugin-typescript --bundleConfigAsCjs --watch",
     "docs": "rimraf docs && typedoc",
     "analyzer": "cross-env ANALYZER=true npm run build",
@@ -97,7 +97,7 @@
     "tslib": "^2.6.2",
     "typedoc": "^0.25.11",
     "typedoc-plugin-rename-defaults": "^0.7.0",
-    "typescript": "^5.3.3"
+    "typescript": "5.3.3"
   },
   "engines": {
     "node": ">=18"

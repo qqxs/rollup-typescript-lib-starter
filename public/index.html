@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -17,37 +17,73 @@
         justify-content: center;
         align-items: center;
       }
+
+      #app {
+        background-color: #000;
+      }
     </style>
   </head>
 
   <body>
-    <div id="root">
-      <h1 id="title">Rollup Typescript Lib</h1>
+    <div id="app"></div>
+
+    <div>
+      <h2>OPTIONS</h2>
+      <div>
+        <input id="showHeader" checked type="checkbox" />showHeader
+        <input id="showFooter" checked type="checkbox" />showFooter
+      </div>
+      <div><button id="init">初始化</button></div>
+    </div>
+    <div>
+      <h2>API</h2>
+      <div>
+        <input id="width" type="number" step="0.1" value="600" placeholder="width" />
+        <input id="height" type="number" step="0.1" value="400" placeholder="height" />
+        <button id="resize">resize</button>
+      </div>
+      <div>
+        <button id="fullscreen">fullscreen</button>
+        <button id="exitFullscreen">exitFullscreen</button>
+      </div>
     </div>
     <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/rxjs/7.8.0/rxjs.umd.js'></script> -->
     <script src="./index.umd.js"></script>
     <script>
-      (function () {
-        const eventEmitter = new RollupTypescriptLibStarter();
-
-        eventEmitter.on('click', () => {
-          console.log('click');
+      let ui;
+      function create() {
+        ui = new RollupTypescriptLibStarter({
+          id: 'app',
+          width: 600,
+          height: 400,
+          showHeader: document.getElementById('showHeader').checked,
+          showFooter: document.getElementById('showFooter').checked,
         });
+      }
 
-        eventEmitter.on('click', () => {
-          console.log('click');
-        });
+      create();
 
-        eventEmitter.emit('click');
+      document.getElementById('init').addEventListener('click', () => {
+        if (ui) {
+        }
+        create();
+      });
 
-        const title = document.getElementById('title');
+      document.getElementById('resize').addEventListener('click', () => {
+        const width = document.getElementById('width').value;
+        const height = document.getElementById('height').value;
+        ui.resize(+width, +height);
+      });
 
-        title.addEventListener('click', () => {
-          eventEmitter.emit('click');
-        });
+      const list = ['fullscreen', 'exitFullscreen'];
 
-        console.log(eventEmitter.version());
-      })();
+      list.forEach((element) => {
+        if (document.getElementById(element)) {
+          document.getElementById(element).addEventListener('click', () => {
+            ui[element]();
+          });
+        }
+      });
     </script>
   </body>
 </html>

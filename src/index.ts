@@ -1,6 +1,6 @@
 import './style';
 
-import EventEmitter, { type EventCallbackFn, type EventEmitterInter } from './main';
+import UI, { type UIOptions } from './main';
 
-export type { EventCallbackFn, EventEmitterInter };
-export default EventEmitter;
+export type { UIOptions };
+export default UI;

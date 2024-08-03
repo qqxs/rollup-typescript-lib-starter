@@ -1,82 +1,252 @@
-export type EventCallbackFn = () => any;
+import './style';
+import merge from 'deepmerge';
+import screenfull from 'screenfull';
+import { isDOM } from './utils/idDom';
+import Control, { type UIControl } from './control';
+import { CONTROLS } from './control/constant';
+import Video from './content';
 
-export interface EventEmitterInter {
-  on: (type: string, fn: EventCallbackFn) => void;
-  off: (type: string, fn?: EventCallbackFn) => void;
-  emit: (type: string) => void;
-  once: (type: string, fn: EventCallbackFn) => void;
+export interface UIOptions {
+  id: string | HTMLElement;
+  width?: number;
+  height?: number;
+  classPrefix?: string;
+  showHeader?: boolean;
+  showFooter?: boolean;
+  controls: Array<string | UIControl>;
 }
 
-/**
- * @class EventEmitter
- * @classdesc 发布订阅
- */
-class EventEmitter implements EventEmitterInter {
-  private listen: Record<string, EventCallbackFn[]>;
+const DEFAULT_OPTIONS = {
+  id: '',
+  width: 600,
+  height: 400,
+  classPrefix: 'ez-player',
+  showHeader: true,
+  showFooter: true,
+  controls: [],
+};
 
-  constructor() {
-    this.listen = {};
-  }
+export const HEADER_POSITION_NODE_NAME = ['header-left', 'header-center', 'header-right'] as const;
+export const FOOTER_POSITION_NODE_NAME = ['footer-left', 'footer-center', 'footer-right'] as const;
 
-  /**
-   * @description 添加订阅
-   * @param {string} type 订阅类型
-   * @param {Function} fn 订阅回调函数
-   * @returns {void}
-   */
-  on(type: string, fn: EventCallbackFn): void {
-    if (this.listen[type]) {
-      this.listen[type].push(fn);
+class UI {
+  options: Required<UIOptions>;
+  $container: HTMLElement;
+  $header: HTMLDivElement;
+  $footer: HTMLDivElement;
+  $content: HTMLDivElement;
+  $video: Video;
+
+  constructor(options: Partial<UIOptions>) {
+    this.options = merge(DEFAULT_OPTIONS, options) as Required<UIOptions>;
+
+    if (typeof this.options.id === 'string') {
+      this.$container = document.getElementById(this.options.id) as HTMLElement;
+    } else if (isDOM(this.options.id)) {
+      this.$container = this.options.id;
     } else {
-      this.listen[type] = [fn];
+      throw new Error('id node does not exist!');
     }
-    console.log('this is console.log');
+    this._renderBody();
+    this._fullscreenEvent();
+  }
+
+  // ------------------------ private -------------------
+
+  private _renderBody() {
+    this.$container.innerHTML = '';
+    this.$container.classList.add(`${this.options.classPrefix}`);
+    this.$container.style.cssText += `width: ${this.options.width}px; height: ${this.options.height}px`;
+    this._renderHeader();
+    this._renderContent();
+    if (this.options.showFooter) this._renderFooter();
+    // this._addEventListener();
   }
 
   /**
-   * @description 取消订阅
-   * @param {string} type 取消订阅的类型
+   * @description 重新渲染, 事件需要重新绑定
+   */
+  private _reRender() {
+    this.$container.innerHTML = '';
+    this._renderBody();
+  }
+
+  /**
+   * @description 渲染内容区
+   * @returns
+   */
+  private _renderContent() {
+    if (this.$content) {
+      return;
+    }
+
+    this.$content = document.createElement('div');
+    this.$content.classList.add(`${this.options.classPrefix}-content`);
+    this.$container.appendChild(this.$content);
+
+    this.$video = new Video(this.$content, {
+      nodeName: 'video',
+      classPrefix: this.options.classPrefix,
+    });
+  }
+
+  /**
+   * @description 渲染头部区 (options.showHeader = false 不展示 header)
+   * @returns
+   */
+  private _renderHeader() {
+    if (this.$header || !this.options.showHeader) {
+      return;
+    }
+
+    this.$header = document.createElement('div');
+    this.$header.classList.add(`${this.options.classPrefix}-header`);
+    this.$container.appendChild(this.$header);
+
+    HEADER_POSITION_NODE_NAME.forEach((classNameSuffix) => {
+      const $children = document.createElement('div');
+      $children.classList.add(`${this.options.classPrefix}-${classNameSuffix}`);
+      this.$header.appendChild($children);
+    });
+
+    this._renderControl(this.$header, (item) => /^header-/.test(item.position));
+  }
+
+  /**
+   * @description 渲染footer区  (options.showFooter = false 不展示 footer)
+   * @returns
+   */
+  private _renderFooter() {
+    if (this.$footer || !this.options.showFooter) {
+      return;
+    }
+
+    this.$footer = document.createElement('div');
+    this.$footer.classList.add(`${this.options.classPrefix}-footer`);
+    this.$container.appendChild(this.$footer);
+
+    FOOTER_POSITION_NODE_NAME.forEach((classNameSuffix) => {
+      const $children = document.createElement('div');
+      $children.classList.add(`${this.options.classPrefix}-${classNameSuffix}`);
+      this.$footer.appendChild($children);
+    });
+
+    this._renderControl(this.$footer, (item) => /^footer-/.test(item.position));
+  }
+
+  private _renderControl($parent: HTMLElement, filter: (item: UIControl) => boolean) {
+    CONTROLS.filter(filter).forEach((controlOpt) => {
+      // eslint-disable-next-line no-new
+      const control = new Control(controlOpt, this);
+      // prettier-ignore
+      const $children = $parent.querySelector(`.${this.options.classPrefix}-${controlOpt.position}`) as HTMLElement;
+      if ($children) {
+        control.render($children);
+      } else {
+        console.warn(`.${this.options.classPrefix}-${controlOpt.position} node does not exist!`);
+      }
+    });
+  }
+
+  /**
+   * @description 全局全屏事件监听
+   */
+  private _fullscreenEvent() {
+    if (screenfull.isEnabled) {
+      // $container change
+      screenfull.on('change', (e) => {
+        if (e.target === this.$container) {
+          // event fullscreenChange
+        }
+      });
+      // $container error
+      screenfull.on('error', (event) => {
+        if (event.target === this.$container) {
+          // event fullscreenError
+        }
+        // console.error('Failed to enable fullscreen', event.target);
+      });
+    }
+  }
+
+  // ------------------------ public -------------------
+
+  /**
+   * @description 设置尺寸
+   * @param {number} width 宽
+   * @param {number} height 高
+   *
    * @returns {void}
    */
-  off(type: string, fn?: EventCallbackFn): void {
-    if (typeof fn === 'function') {
-      const list = this.listen[type];
-      const index = list.findIndex((item) => item === fn);
-      list.splice(index, 1);
-      this.listen[type] = list;
-    } else {
-      this.listen[type] = [];
+  resize(width: number, height: number) {
+    try {
+      width = +width;
+      height = +height;
+
+      if (typeof width === 'number' && typeof height === 'number' && width > 0 && height > 0) {
+        this.options.width = width;
+        this.options.height = height;
+        this.$container.style.width = width + 'px';
+        this.$container.style.height = height + 'px';
+      } else {
+        console.warn('width and height must be greater than 0!');
+      }
+    } catch (error) {
+      //
     }
   }
 
   /**
-   * @description 触发订阅
-   * @param {string} type 订阅类型
-   * @return {void}
+   * @description 全局全屏
+   * @returns {Promise<void>}
    */
-  emit(type: string): void {
-    if (this.listen[type]) {
-      this.listen[type].forEach((f) => f());
+  async fullscreen() {
+    if (screenfull.isEnabled) {
+      return await screenfull.request(this.$container);
     }
   }
 
   /**
-   * @description 订阅一次, 只触发一次， 然后销毁
-   * @param {string} type 订阅类型
-   * @param {Function} fn 订阅回调函数
+   * @description 退出全屏
+   * @returns {Promise<void>}
+   */
+  async exitFullscreen() {
+    if (screenfull.isEnabled) {
+      return await screenfull.exit();
+    }
+  }
+
+  async webFullscreen() {
+    throw new Error('webFullscreen');
+  }
+
+  // updateOptions(options: Partial<UIOptions>) {
+  //   if (options.id) {
+  //     delete options.id;
+  //   }
+  //   this.options = merge(this.options, options) as Required<UIOptions>;
+  // }
+
+  /**
+   * @description 销毁
    * @returns {void}
    */
-  once(type: string, fn: EventCallbackFn): void {
-    const cb = () => {
-      fn();
-      this.off(type, cb);
-    };
-    this.on(type, cb);
-  }
-
-  version() {
-    return '__VERSION__';
+  destroy() {
+    this.$container.innerHTML = '';
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    this.$container = null!;
+    this.$header.innerHTML = '';
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    this.$header = null!;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    this.$video = null!;
+    this.$content.innerHTML = '';
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    this.$content = null!;
+    this.$footer.innerHTML = '';
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    this.$footer = null!;
   }
 }
 
-export default EventEmitter;
+export default UI;

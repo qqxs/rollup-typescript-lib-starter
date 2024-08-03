@@ -1,8 +1,122 @@
-#title {
-  font-size: 50px;
-  color: #000;
-  background-image: linear-gradient(to right, orange, purple);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+$class-prefix: ez-player;
+
+:root {
+  --ez-primary-color: #0099e5;
+  --ez-header-height: 60px;
+  --ez-footer-height: 40px;
+  --ez-font-size: 14px;
+}
+
+.#{$class-prefix} {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-sizing: border-box;
+  user-select: none;
+  font-size: var(--ez-font-size, 14px);
+
+  & * {
+    box-sizing: border-box;
+    user-select: none;
+  }
+
+  &:hover {
+    .#{$class-prefix}-footer {
+      pointer-events: unset;
+      opacity: 1;
+    }
+  }
+
+  // -------------------- header -------------------
+
+  &-header,
+  &-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    & > div {
+      overflow: hidden;
+    }
+  }
+
+  &-header {
+    background-color: red;
+    height: var(--ez-header-height, 50px);
+
+    & > div {
+      height: var(--ez-header-height, 50px);
+      overflow: hidden;
+    }
+
+    & .#{$class-prefix}-control {
+      min-width: var(--ez-header-height, 50px);
+      height: var(--ez-header-height, 50px);
+    }
+  }
+
+  // -------------------- content -------------------
+  &-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+  }
+
+  &-video {
+    width: 100%;
+    height: 100%;
+  }
+
+  // -------------------- footer -------------------
+
+  &-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 0, 0, 0.4);
+    z-index: 10;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity ease 0.3s;
+    height: var(--ez-footer-height, 50px);
+
+    & > div {
+      height: var(--ez-footer-height, 50px);
+      overflow: hidden;
+    }
+
+    & .#{$class-prefix}-control {
+      min-width: var(--ez-footer-height, 50px);
+      height: var(--ez-footer-height, 50px);
+    }
+  }
+
+  &-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #fff;
+    cursor: pointer;
+    padding: 5px;
+
+    &-disabled {
+      color: #aaa;
+      cursor: not-allowed;
+    }
+
+    &-active {
+      color: #0099e5;
+    }
+  }
+
+  // // mini (width <= 400)
+  // &.#{$class-prefix}-mini {
+  //   &-header,
+  //   &-footer {
+  //     height: $primary-mini-height;
+  //   }
+  // }
 }

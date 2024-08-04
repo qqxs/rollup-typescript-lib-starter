@@ -16,6 +16,10 @@ class VideoLoader extends CommonLoader {
     this.$videoElement = document.createElement('video');
     this.$videoElement.classList.add(`${this.options.classPrefix}-video`);
     this._$content.appendChild(this.$videoElement);
+
+    this.$videoElement.addEventListener('loadedmetadata', () => {
+      console.log(this.$videoElement.videoWidth, this.$videoElement.videoHeight);
+    });
   }
 }
 

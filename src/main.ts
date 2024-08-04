@@ -4,7 +4,15 @@ import screenfull from 'screenfull';
 import { isDOM } from './utils/idDom';
 import Control, { type UIControl } from './control';
 import { CONTROLS } from './control/constant';
-import Video from './content';
+import {
+  HEADER_POSITION_NODE_NAME,
+  FOOTER_POSITION_NODE_NAME,
+  type IMAGE_FORMAT_TYPE,
+  type IMAGE_SCREENSHOT_TYPE,
+} from './constant';
+import type VideoLoader from './video/video';
+import type CanvasLoader from './video/canvas';
+import createLoader from './video';
 
 export interface UIOptions {
   id: string | HTMLElement;
@@ -14,6 +22,8 @@ export interface UIOptions {
   showHeader?: boolean;
   showFooter?: boolean;
   controls: Array<string | UIControl>;
+  controlsOptions?: Record<string, any>;
+  nodeName: 'canvas' | 'video';
 }
 
 const DEFAULT_OPTIONS = {
@@ -24,10 +34,9 @@ const DEFAULT_OPTIONS = {
   showHeader: true,
   showFooter: true,
   controls: [],
+  nodeName: 'canvas',
+  controlsOptions: {},
 };
-
-export const HEADER_POSITION_NODE_NAME = ['header-left', 'header-center', 'header-right'] as const;
-export const FOOTER_POSITION_NODE_NAME = ['footer-left', 'footer-center', 'footer-right'] as const;
 
 class UI {
   options: Required<UIOptions>;
@@ -35,10 +44,14 @@ class UI {
   $header: HTMLDivElement;
   $footer: HTMLDivElement;
   $content: HTMLDivElement;
-  $video: Video;
+  videoLoader: VideoLoader | CanvasLoader;
+
+  static controls: Record<string, Control>;
 
   constructor(options: Partial<UIOptions>) {
     this.options = merge(DEFAULT_OPTIONS, options) as Required<UIOptions>;
+
+    console.log(JSON.stringify(this.options));
 
     if (typeof this.options.id === 'string') {
       this.$container = document.getElementById(this.options.id) as HTMLElement;
@@ -72,25 +85,6 @@ class UI {
   }
 
   /**
-   * @description 渲染内容区
-   * @returns
-   */
-  private _renderContent() {
-    if (this.$content) {
-      return;
-    }
-
-    this.$content = document.createElement('div');
-    this.$content.classList.add(`${this.options.classPrefix}-content`);
-    this.$container.appendChild(this.$content);
-
-    this.$video = new Video(this.$content, {
-      nodeName: 'video',
-      classPrefix: this.options.classPrefix,
-    });
-  }
-
-  /**
    * @description 渲染头部区 (options.showHeader = false 不展示 header)
    * @returns
    */
@@ -110,6 +104,25 @@ class UI {
     });
 
     this._renderControl(this.$header, (item) => /^header-/.test(item.position));
+  }
+
+  /**
+   * @description 渲染内容区
+   * @returns
+   */
+  private _renderContent() {
+    if (this.$content) {
+      return;
+    }
+
+    this.$content = document.createElement('div');
+    this.$content.classList.add(`${this.options.classPrefix}-content`);
+    this.$container.appendChild(this.$content);
+
+    this.videoLoader = createLoader(this.$content, {
+      nodeName: this.options.nodeName,
+      classPrefix: this.options.classPrefix,
+    });
   }
 
   /**
@@ -143,7 +156,7 @@ class UI {
       if ($children) {
         control.render($children);
       } else {
-        console.warn(`.${this.options.classPrefix}-${controlOpt.position} node does not exist!`);
+        console.warn(`position ${controlOpt.position} node does not exist!`);
       }
     });
   }
@@ -197,6 +210,20 @@ class UI {
   }
 
   /**
+   * @description 截图
+   * @param {string} filename 文件名
+   * @param {keyof typeof IMAGE_FORMAT_TYPE} format 图片格式
+   * @param {number} quality 图片质量 (0-1]
+   * @param {keyof typeof IMAGE_SCREENSHOT_TYPE} type 文件类型 （base64 , blob,  download）
+   *
+   * @returns {string | Blob | undefined} download 没有返回值
+   */
+  // prettier-ignore
+  screenshot (filename?: string, format: keyof typeof IMAGE_FORMAT_TYPE = 'jpeg', quality: number = 0.92, type: keyof typeof IMAGE_SCREENSHOT_TYPE = 'download') {
+    return this.videoLoader.screenshot(filename, format, quality, type)
+  }
+
+  /**
    * @description 全局全屏
    * @returns {Promise<void>}
    */
@@ -239,7 +266,7 @@ class UI {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.$header = null!;
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    this.$video = null!;
+    this.videoLoader = null!;
     this.$content.innerHTML = '';
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.$content = null!;

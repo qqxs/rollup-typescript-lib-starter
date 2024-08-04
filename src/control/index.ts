@@ -1,11 +1,7 @@
 // import { upperCamel } from '@skax/camel';
 
 import type UI from '../main';
-import {
-  type FOOTER_POSITION_NODE_NAME,
-  type HEADER_POSITION_NODE_NAME,
-  // type UIOptions,
-} from '../main';
+import { type FOOTER_POSITION_NODE_NAME, type HEADER_POSITION_NODE_NAME } from '../constant';
 
 export type UIControlPosition =
   | (typeof HEADER_POSITION_NODE_NAME)[number]
@@ -24,7 +20,7 @@ export interface UIControl {
   /**  */
   cssText?: string;
   className?: string;
-  htmlContent: ((option: UIControl, ui: UI) => string) | string;
+  htmlContent: ((control: Control, ui: UI) => string) | string;
   disabled?: boolean;
   active?: boolean;
 }
@@ -59,13 +55,20 @@ class Control {
   }
 
   render($parent: HTMLElement) {
+    if (this.$span) {
+      return;
+    }
+
     this.$span = document.createElement('span');
     // prettier-ignore
     this.$span.classList.add(`${this._ui.options.classPrefix}-control`, `${this._ui.options.classPrefix}-control-${this.options.name}`);
     if (this.options?.className) this.$span.classList.add(`${this.options?.className}`);
     if (this.options?.cssText) this.$span.style.cssText += this.options?.cssText || '';
+
     this.renderHtmlContent();
+
     if ($parent) $parent.appendChild(this.$span);
+
     this.disabled = this._disabled;
     this.active = this._active;
 
@@ -117,27 +120,38 @@ class Control {
       this.$span.innerHTML = this.options.htmlContent;
     } else if (typeof this.options.htmlContent === 'function') {
       //
-      this.$span.innerHTML = this.options.htmlContent(this.options, this._ui);
+      this.$span.innerHTML = this.options.htmlContent(this, this._ui);
     } else {
       console.warn('control options htmlContent is invalid!');
     }
   }
 
   destroy() {
+    this._removeEventListener();
     this._active = false;
     this._disabled = false;
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.$span = null!;
   }
 
+  /**
+   * @description 添加事件
+   */
   private _addEventListener() {
     if (this.$span) {
       this._handleClick = () => {
         if (!this._disabled) this.active = !this.active;
       };
-
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       this.$span.addEventListener('click', this._handleClick);
+    }
+  }
+
+  /**
+   * @description 移除事件
+   */
+  private _removeEventListener() {
+    if (this.$span) {
+      this.$span.removeEventListener('click', this._handleClick);
     }
   }
 }

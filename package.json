@@ -120,6 +120,7 @@
   },
   "dependencies": {
     "deepmerge": "^4.3.1",
+    "file-saver": "^2.0.5",
     "resize-observer-polyfill": "^1.5.1",
     "screenfull": "^6.0.2"
   }

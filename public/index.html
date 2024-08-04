@@ -14,37 +14,80 @@
       #root {
         display: flex;
         height: 100vh;
-        justify-content: center;
+        flex-direction: column;
+        /* justify-content: center; */
         align-items: center;
       }
 
       #app {
-        background-color: #000;
+        background-color: #eee;
+      }
+
+      .options,
+      .api {
+        display: flex;
+        flex-direction: column;
+        width: 600px;
+        margin-bottom: 20px;
+      }
+
+      .options-content,
+      .api-content {
+        display: flex;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+
+      button + button {
+        margin-left: 10px;
       }
     </style>
   </head>
 
   <body>
-    <div id="app"></div>
-
-    <div>
-      <h2>OPTIONS</h2>
-      <div>
-        <input id="showHeader" checked type="checkbox" />showHeader
-        <input id="showFooter" checked type="checkbox" />showFooter
+    <div id="root">
+      <div id="app"></div>
+      <div class="options">
+        <h2>OPTIONS</h2>
+        <div class="options-content">
+          <input id="optionWidth" type="number" placeholder="宽" value="600" />
+          <input id="optionHeight" type="number" placeholder="高" value="400" />
+          <input id="optionClassPrefix" placeholder="classPrefix" value="ez-player" />
+          <input id="showHeader" checked type="checkbox" />showHeader
+          <input id="showFooter" checked type="checkbox" />showFooter
+          <select id="nodeName">
+            <option value="canvas">canvas</option>
+            <option value="video">video</option>
+          </select>
+        </div>
+        <div><button id="init">初始化</button></div>
       </div>
-      <div><button id="init">初始化</button></div>
-    </div>
-    <div>
-      <h2>API</h2>
-      <div>
-        <input id="width" type="number" step="0.1" value="600" placeholder="width" />
-        <input id="height" type="number" step="0.1" value="400" placeholder="height" />
-        <button id="resize">resize</button>
-      </div>
-      <div>
-        <button id="fullscreen">fullscreen</button>
-        <button id="exitFullscreen">exitFullscreen</button>
+      <div class="api">
+        <h2>API</h2>
+        <div class="api-content">
+          <input id="width" type="number" step="0.1" value="600" placeholder="width" />
+          <input id="height" type="number" step="0.1" value="400" placeholder="height" />
+          <button id="resize">resize</button>
+        </div>
+        <div class="api-content">
+          <button id="fullscreen">fullscreen</button>
+          <button id="exitFullscreen">exitFullscreen</button>
+        </div>
+        <div class="api-content">
+          <input id="screenshotFileName" placeholder="文件名" />
+          <select id="screenshotFormat">
+            <option value="jpeg">jpeg</option>
+            <option value="png">png</option>
+            <option value="webp">webp</option>
+          </select>
+          <input id="screenshotQuality" type="number" step="0.01" placeholder="图片质量" />
+          <select id="screenshotType">
+            <option value="download">download</option>
+            <option value="base64">base64</option>
+            <option value="blob">blob</option>
+          </select>
+          <button id="screenshot">screenshot</button>
+        </div>
       </div>
     </div>
     <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/rxjs/7.8.0/rxjs.umd.js'></script> -->
@@ -54,10 +97,12 @@
       function create() {
         ui = new RollupTypescriptLibStarter({
           id: 'app',
-          width: 600,
-          height: 400,
+          width: document.getElementById('optionWidth').value || 600,
+          height: document.getElementById('optionHeight').value || 400,
           showHeader: document.getElementById('showHeader').checked,
           showFooter: document.getElementById('showFooter').checked,
+          nodeName: document.getElementById('nodeName').value,
+          classPrefix: document.getElementById('optionClassPrefix').value,
         });
       }
 
@@ -83,6 +128,16 @@
             ui[element]();
           });
         }
+      });
+
+      document.getElementById('screenshot').addEventListener('click', () => {
+        const fileName = document.getElementById('screenshotFileName').value;
+        const format = document.getElementById('screenshotFormat').value;
+        const quality = document.getElementById('screenshotQuality').value;
+        const type = document.getElementById('screenshotType').value;
+
+        const result = ui.screenshot(fileName, format, quality, type);
+        console.log('screenshot: ', result);
       });
     </script>
   </body>

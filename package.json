@@ -1,6 +1,6 @@
 {
   "name": "rollup-typescript-lib-starter",
-  "version": "0.5.8",
+  "version": "0.5.9",
   "description": "start rollup typescript develop javascript lib",
   "main": "dist/index.js",
   "amd": "dist/index.amd.js",

@@ -1,7 +1,7 @@
 import strip from '@rollup/plugin-strip';
 import configList from './rollup.config';
 
-configList.map((config) => {
+configList.map(config => {
   config.plugins = [
     ...config.plugins,
     strip({

@@ -12,7 +12,7 @@ describe('EventEmitter test', () => {
     expect(new EventEmitter()).toBeInstanceOf(EventEmitter);
   });
 
-  it('EventEmitterClass on', (done) => {
+  it('EventEmitterClass on', done => {
     const event = new EventEmitter();
 
     event.on('click', () => {
@@ -21,7 +21,7 @@ describe('EventEmitter test', () => {
     event.emit('click');
   });
 
-  it('EventEmitterClass once', (done) => {
+  it('EventEmitterClass once', done => {
     const event = new EventEmitter();
 
     event.once('once-click', () => {
@@ -30,7 +30,7 @@ describe('EventEmitter test', () => {
     event.emit('once-click');
   });
 
-  it('EventEmitterClass off', (done) => {
+  it('EventEmitterClass off', done => {
     const event = new EventEmitter();
 
     event.on('click', () => {
@@ -42,7 +42,7 @@ describe('EventEmitter test', () => {
     event.emit('click');
   });
 
-  it('EventEmitterClass emit', (done) => {
+  it('EventEmitterClass emit', done => {
     const event = new EventEmitter();
 
     event.on('click', () => {});
@@ -54,7 +54,7 @@ describe('EventEmitter test', () => {
     event.emit('click');
   });
 
-  it('EventEmitterClass version', (done) => {
+  it('EventEmitterClass version', done => {
     const event = new EventEmitter();
     event.version();
     done();

@@ -9,7 +9,7 @@ export interface EventEmitterInter {
 
 /**
  * @class EventEmitter
- * @classdesc 发布订阅
+ * 发布订阅
  */
 class EventEmitter implements EventEmitterInter {
   private listen: Record<string, EventCallbackFn[]>;
@@ -19,7 +19,7 @@ class EventEmitter implements EventEmitterInter {
   }
 
   /**
-   * @description 添加订阅
+   * 添加订阅
    * @param {string} type 订阅类型
    * @param {Function} fn 订阅回调函数
    * @returns {void}
@@ -34,14 +34,14 @@ class EventEmitter implements EventEmitterInter {
   }
 
   /**
-   * @description 取消订阅
+   * 取消订阅
    * @param {string} type 取消订阅的类型
    * @returns {void}
    */
   off(type: string, fn?: EventCallbackFn): void {
     if (typeof fn === 'function') {
       const list = this.listen[type];
-      const index = list.findIndex((item) => item === fn);
+      const index = list.findIndex(item => item === fn);
       list.splice(index, 1);
       this.listen[type] = list;
     } else {
@@ -50,18 +50,18 @@ class EventEmitter implements EventEmitterInter {
   }
 
   /**
-   * @description 触发订阅
+   * 触发订阅
    * @param {string} type 订阅类型
    * @return {void}
    */
   emit(type: string): void {
     if (this.listen[type]) {
-      this.listen[type].forEach((f) => f());
+      this.listen[type].forEach(f => f());
     }
   }
 
   /**
-   * @description 订阅一次, 只触发一次， 然后销毁
+   * 订阅一次, 只触发一次， 然后销毁
    * @param {string} type 订阅类型
    * @param {Function} fn 订阅回调函数
    * @returns {void}

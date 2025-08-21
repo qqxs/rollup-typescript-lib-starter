@@ -126,12 +126,9 @@ export default isDev
                 banner,
               },
             ],
-            plugins: [
-              ...rollupPlugins({ target: 'es5' }),
-              ...[terser(), isAnalyzer ? visualizer() : null].filter((plugin) => plugin !== null),
-            ],
+            plugins: [...rollupPlugins({ target: 'es5' }), ...[terser(), isAnalyzer ? visualizer() : null].filter(plugin => plugin !== null)],
             // external: ['rxjs'] // 如果你不想第三方库被打包进来，而可以在外面引入，配合使用的话，可以在rollup.config.js中配置external
           }
         : null,
       dtsConfig,
-    ].filter((config) => config !== null) as MergedRollupOptions[]);
+    ].filter(config => config !== null) as MergedRollupOptions[]);

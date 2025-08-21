@@ -1,6 +1,0 @@
-dist/
-docs/
-coverage/
-node_modules
-
-src/**/*.scss

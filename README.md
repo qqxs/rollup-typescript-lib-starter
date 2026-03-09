@@ -4,7 +4,7 @@
 
 用来开发前端库，支持 Typescript/Javascript。
 
-不在更新， 请使用 https://github.com/freeshineit/pnpm-workspace
+不再更新， 请使用 https://github.com/freeshineit/pnpm-workspace
 
 ### Use
 
